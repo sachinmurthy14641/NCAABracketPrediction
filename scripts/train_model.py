@@ -1,8 +1,13 @@
 """Train and evaluate NCAA tournament game prediction models.
 
-Trains a Logistic Regression and XGBoost classifier on the labeled matchup
-dataset, evaluates with time-series cross-validation (walk-forward by season),
-calibrates probabilities, and saves the best model to outputs/models/.
+Trains a Logistic Regression on the labeled matchup dataset using a
+time-series 3-way split, calibrates on the validation season, and
+evaluates on the held-out test season.
+
+Split:
+  - Train : seasons <= 2021  (original + mirrored rows)
+  - Val   : season  == 2022  (both perspectives; used for Platt calibration)
+  - Test  : season  == 2023  (both perspectives; final held-out evaluation)
 
 Usage::
 
@@ -12,10 +17,10 @@ Usage::
 import sys
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from sklearn.calibration import CalibratedClassifierCV
-from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.calibration import CalibratedClassifierCV, calibration_curve
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, brier_score_loss, log_loss, roc_auc_score
 from sklearn.preprocessing import StandardScaler
@@ -24,7 +29,8 @@ from sklearn.pipeline import Pipeline
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 TRAINING_DATA_PATH = Path("data/processed/training_data.csv")
-MODELS_DIR = Path("outputs/models")
+MODELS_DIR         = Path("outputs/models")
+REPORTS_DIR        = Path("outputs/reports")
 
 FEATURE_COLS = [
     "off_eff_advantage",
@@ -41,101 +47,99 @@ FEATURE_COLS = [
     "b_adj_def_eff",
     "b_adj_em",
 ]
-LABEL_COL = "winner"
+LABEL_COL  = "winner"
 SEASON_COL = "season"
 
-# Walk-forward CV: train on all seasons before test season
-# Use last 5 seasons as rolling test windows
-N_TEST_SEASONS = 5
+TRAIN_MAX  = 2021
+VAL_SEASON = 2022
+TEST_SEASON = 2023
 
 
 # ---------------------------------------------------------------------------
-# Helpers
+# Data
 # ---------------------------------------------------------------------------
 
-def load_data() -> pd.DataFrame:
+def load_splits() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Return (train_df, val_df, test_df) with both mirrored perspectives each."""
     df = pd.read_csv(TRAINING_DATA_PATH)
-    # De-duplicate mirrored rows for evaluation (keep only winner=1 perspective)
-    # We train on both but evaluate on unique games
-    return df
+    train_df = df[df[SEASON_COL] <= TRAIN_MAX].copy()
+    val_df   = df[df[SEASON_COL] == VAL_SEASON].copy()
+    test_df  = df[df[SEASON_COL] == TEST_SEASON].copy()
+    return train_df, val_df, test_df
 
 
-def walk_forward_cv(df: pd.DataFrame, model_factory, seasons: list[int]) -> dict:
-    """Evaluate a model with walk-forward (time-series) cross-validation.
+# ---------------------------------------------------------------------------
+# Model
+# ---------------------------------------------------------------------------
 
-    For each test season, trains on all prior seasons and predicts on the
-    test season. Only uses winner=1 rows for evaluation (unique games).
-    """
-    all_preds, all_labels, all_probs = [], [], []
+def make_logistic_uncalibrated() -> Pipeline:
+    """Logistic regression without internal calibration (we calibrate externally)."""
+    return Pipeline([
+        ("scaler", StandardScaler()),
+        ("clf",    LogisticRegression(max_iter=1000, C=1.0, random_state=42)),
+    ])
 
-    for test_season in seasons:
-        train_df = df[df[SEASON_COL] < test_season]
-        # Use both mirrored perspectives so both classes are present for AUC/log_loss
-        test_df = df[df[SEASON_COL] == test_season]
 
-        if len(train_df) < 50 or len(test_df) == 0:
-            continue
+# ---------------------------------------------------------------------------
+# Evaluation
+# ---------------------------------------------------------------------------
 
-        X_train = train_df[FEATURE_COLS].values
-        y_train = train_df[LABEL_COL].values
-        X_test = test_df[FEATURE_COLS].values
-        y_test = test_df[LABEL_COL].values
-
-        model = model_factory()
-        model.fit(X_train, y_train)
-
-        probs = model.predict_proba(X_test)[:, 1]
-        preds = (probs >= 0.5).astype(int)
-
-        all_probs.extend(probs)
-        all_preds.extend(preds)
-        all_labels.extend(y_test)
-
-    all_probs = np.array(all_probs)
-    all_labels = np.array(all_labels)
-    all_preds = np.array(all_preds)
-
+def evaluate(model, X: np.ndarray, y: np.ndarray, label: str) -> dict:
+    probs = model.predict_proba(X)[:, 1]
+    preds = (probs >= 0.5).astype(int)
     return {
-        "accuracy":    accuracy_score(all_labels, all_preds),
-        "auc":         roc_auc_score(all_labels, all_probs),
-        "brier":       brier_score_loss(all_labels, all_probs),
-        "log_loss":    log_loss(all_labels, all_probs),
-        "n_games":     len(all_labels),
+        "split":    label,
+        "n_games":  len(y) // 2,
+        "accuracy": accuracy_score(y, preds),
+        "auc":      roc_auc_score(y, probs),
+        "brier":    brier_score_loss(y, probs),
+        "log_loss": log_loss(y, probs),
     }
 
 
-def make_logistic() -> Pipeline:
-    return Pipeline([
-        ("scaler", StandardScaler()),
-        ("clf", CalibratedClassifierCV(
-            LogisticRegression(max_iter=1000, C=1.0, random_state=42),
-            cv=5, method="isotonic"
-        )),
-    ])
-
-
-def make_hgb() -> Pipeline:
-    return Pipeline([
-        ("scaler", StandardScaler()),
-        ("clf", CalibratedClassifierCV(
-            HistGradientBoostingClassifier(
-                max_iter=200,
-                max_depth=4,
-                learning_rate=0.05,
-                random_state=42,
-            ),
-            cv=5, method="isotonic"
-        )),
-    ])
-
-
-def print_metrics(name: str, metrics: dict) -> None:
-    print(f"\n{name}")
-    print(f"  Games evaluated : {metrics['n_games']}")
+def print_metrics(metrics: dict) -> None:
+    print(f"\n  Split           : {metrics['split']}")
+    print(f"  Unique games    : {metrics['n_games']}  (random baseline = 0.50)")
     print(f"  Accuracy        : {metrics['accuracy']:.4f}")
     print(f"  ROC-AUC         : {metrics['auc']:.4f}")
-    print(f"  Brier Score     : {metrics['brier']:.4f}  (target < 0.18)")
+    print(f"  Brier Score     : {metrics['brier']:.4f}")
     print(f"  Log Loss        : {metrics['log_loss']:.4f}")
+
+
+def save_calibration_plot(model, X_test: np.ndarray, y_test: np.ndarray) -> Path:
+    """Save reliability diagram for the test set."""
+    probs = model.predict_proba(X_test)[:, 1]
+    prob_true, prob_pred = calibration_curve(y_test, probs, n_bins=10, strategy="quantile")
+
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.plot([0, 1], [0, 1], "k--", label="Perfectly calibrated")
+    ax.plot(prob_pred, prob_true, "o-", label="Logistic Regression (Platt)")
+    ax.set_xlabel("Mean predicted probability")
+    ax.set_ylabel("Fraction of positives")
+    ax.set_title(f"Calibration plot — Test season {TEST_SEASON}")
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    out = REPORTS_DIR / "calibration_plot_logistic_v1.png"
+    fig.savefig(out, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    return out
+
+
+class PlattModel:
+    """Thin wrapper: base pipeline → Platt logistic → calibrated probabilities."""
+
+    def __init__(self, base, platt):
+        self.base = base
+        self.platt = platt
+
+    def predict_proba(self, X: np.ndarray) -> np.ndarray:
+        raw = self.base.predict_proba(X)
+        return self.platt.predict_proba(raw)
+
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        return (self.predict_proba(X)[:, 1] >= 0.5).astype(int)
 
 
 # ---------------------------------------------------------------------------
@@ -145,61 +149,67 @@ def print_metrics(name: str, metrics: dict) -> None:
 def main() -> None:
     import pickle
 
-    print("Loading training data...")
-    df = load_data()
-    print(f"  Total rows      : {len(df):,}")
-    print(f"  Seasons         : {df[SEASON_COL].min()}–{df[SEASON_COL].max()}")
+    print("Loading data splits...")
+    train_df, val_df, test_df = load_splits()
+    print(f"  Train rows : {len(train_df):,}  (seasons ≤ {TRAIN_MAX})")
+    print(f"  Val rows   : {len(val_df):,}  (season {VAL_SEASON})")
+    print(f"  Test rows  : {len(test_df):,}  (season {TEST_SEASON})")
 
-    seasons = sorted(df[SEASON_COL].unique())
-    test_seasons = seasons[-N_TEST_SEASONS:]
-    print(f"  Walk-forward CV test seasons: {test_seasons}")
+    X_train = train_df[FEATURE_COLS].values
+    y_train = train_df[LABEL_COL].values
+    X_val   = val_df[FEATURE_COLS].values
+    y_val   = val_df[LABEL_COL].values
+    X_test  = test_df[FEATURE_COLS].values
+    y_test  = test_df[LABEL_COL].values
 
-    print("\nEvaluating models (walk-forward CV)...")
-    lr_metrics  = walk_forward_cv(df, make_logistic, test_seasons)
-    hgb_metrics = walk_forward_cv(df, make_hgb,      test_seasons)
+    # Step 1: fit base logistic on train
+    print("\nFitting base Logistic Regression on train set...")
+    base = make_logistic_uncalibrated()
+    base.fit(X_train, y_train)
+
+    # Step 2: Platt calibration using val set
+    print("Calibrating with Platt scaling on val set (season 2022)...")
+    val_probs_uncal = base.predict_proba(X_val)
+    platt = LogisticRegression(max_iter=1000)
+    platt.fit(val_probs_uncal, y_val)
+    model = PlattModel(base, platt)
+
+    # Step 3: Evaluate
+    val_metrics  = evaluate(model, X_val,  y_val,  f"Val  ({VAL_SEASON})")
+    test_metrics = evaluate(model, X_test, y_test, f"Test ({TEST_SEASON})")
 
     print("\n" + "=" * 60)
-    print("MODEL EVALUATION (Walk-Forward CV)")
+    print("MODEL EVALUATION — baseline_logistic_v1")
     print("=" * 60)
-    print_metrics("Logistic Regression (calibrated)",        lr_metrics)
-    print_metrics("Hist Gradient Boosting (calibrated)",     hgb_metrics)
+    print_metrics(val_metrics)
+    print_metrics(test_metrics)
 
-    # Pick best model by Brier Score (lower = better calibrated)
-    best_name, best_factory, best_metrics = (
-        ("Hist Gradient Boosting", make_hgb, hgb_metrics)
-        if hgb_metrics["brier"] <= lr_metrics["brier"]
-        else ("Logistic Regression", make_logistic, lr_metrics)
-    )
-    print(f"\nBest model: {best_name} (Brier={best_metrics['brier']:.4f})")
+    # Step 4: Calibration plot
+    plot_path = save_calibration_plot(model, X_test, y_test)
+    print(f"\nCalibration plot saved: {plot_path}")
 
-    # Retrain best model on ALL data
-    print(f"\nRetraining {best_name} on full dataset...")
-    X_all = df[FEATURE_COLS].values
-    y_all = df[LABEL_COL].values
-    final_model = best_factory()
-    final_model.fit(X_all, y_all)
-
-    # Save model + metadata
+    # Step 5: Save model
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
-    model_path = MODELS_DIR / "best_model.pkl"
-    meta_path  = MODELS_DIR / "best_model_meta.csv"
+    model_path = MODELS_DIR / "baseline_logistic_v1.pkl"
+    meta_path  = MODELS_DIR / "baseline_logistic_v1_meta.csv"
 
     with open(model_path, "wb") as f:
-        pickle.dump({"model": final_model, "features": FEATURE_COLS, "name": best_name}, f)
+        pickle.dump({"model": model, "features": FEATURE_COLS, "name": "baseline_logistic_v1"}, f)
 
     meta = pd.DataFrame([{
-        "model":    best_name,
-        "accuracy": best_metrics["accuracy"],
-        "auc":      best_metrics["auc"],
-        "brier":    best_metrics["brier"],
-        "log_loss": best_metrics["log_loss"],
-        "n_games":  best_metrics["n_games"],
-        "features": ",".join(FEATURE_COLS),
+        "model":       "baseline_logistic_v1",
+        "train_max":   TRAIN_MAX,
+        "val_season":  VAL_SEASON,
+        "test_season": TEST_SEASON,
+        **{f"val_{k}":  v for k, v in val_metrics.items()  if k not in ("split", "n_games")},
+        **{f"test_{k}": v for k, v in test_metrics.items() if k not in ("split", "n_games")},
+        "n_test_games": test_metrics["n_games"],
+        "features":    ",".join(FEATURE_COLS),
     }])
     meta.to_csv(meta_path, index=False)
 
-    print(f"  Saved model  : {model_path}")
-    print(f"  Saved meta   : {meta_path}")
+    print(f"  Saved model : {model_path}")
+    print(f"  Saved meta  : {meta_path}")
     print("=" * 60)
 
 

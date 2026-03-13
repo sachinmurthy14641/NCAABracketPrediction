@@ -1,0 +1,2 @@
+model,train_max,val_season,test_season,val_accuracy,val_auc,val_brier,val_log_loss,test_accuracy,test_auc,test_brier,test_log_loss,n_test_games,features
+baseline_logistic_v1,2021,2022,2023,0.9701492537313433,0.9991089329472043,0.014104048559690404,0.07990155347796399,0.9538461538461539,0.9955029585798817,0.03281187068365469,0.1400573938533146,65,"off_eff_advantage,def_eff_advantage,net_efficiency_edge,tempo_difference,overall_rating_diff,efficiency_differential_diff,seed_diff,a_adj_off_eff,a_adj_def_eff,a_adj_em,b_adj_off_eff,b_adj_def_eff,b_adj_em"
