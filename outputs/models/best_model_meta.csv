@@ -1,0 +1,2 @@
+model,accuracy,auc,brier,log_loss,n_games,features
+Hist Gradient Boosting,0.9894259818731118,0.9997991986199469,0.006447603519693129,0.021366918358769926,662,"off_eff_advantage,def_eff_advantage,net_efficiency_edge,tempo_difference,overall_rating_diff,efficiency_differential_diff,seed_diff,a_adj_off_eff,a_adj_def_eff,a_adj_em,b_adj_off_eff,b_adj_def_eff,b_adj_em"
