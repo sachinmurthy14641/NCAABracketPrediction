@@ -29,14 +29,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from scripts.train_model import PlattModel, FEATURE_COLS, LABEL_COL, SEASON_COL  # noqa: F401
 
 TRAINING_DATA  = Path("data/processed/training_data.csv")
-LR_MODEL_PATH  = Path("outputs/models/baseline_logistic_v1.pkl")
-LGBM_PATH      = Path("outputs/models/lgbm_v1.pkl")
+LR_MODEL_PATH  = Path("outputs/models/baseline_logistic_v2.pkl")
+LGBM_PATH      = Path("outputs/models/lgbm_v2.pkl")
+FINAL_PATH     = Path("outputs/models/lightgbm_final_2026.pkl")
 ENSEMBLE_PATH  = Path("outputs/models/ensemble_v1.pkl")
 REPORTS_DIR    = Path("outputs/reports")
 
-TRAIN_MAX   = 2021
-VAL_SEASON  = 2022
-TEST_SEASON = 2023
+TRAIN_MAX   = 2022
+VAL_SEASON  = 2023
+TEST_SEASON = 2024
 
 
 # ---------------------------------------------------------------------------
@@ -268,9 +269,14 @@ def main() -> None:
 
     # --- Save LightGBM ---
     Path("outputs/models").mkdir(parents=True, exist_ok=True)
+    payload = {"model": lgbm_model, "features": FEATURE_COLS, "name": "lgbm_v2",
+               "train_max": TRAIN_MAX, "val_season": VAL_SEASON, "test_season": TEST_SEASON}
     with open(LGBM_PATH, "wb") as f:
-        pickle.dump({"model": lgbm_model, "features": FEATURE_COLS, "name": "lgbm_v1"}, f)
-    print(f"\n  LightGBM saved → {LGBM_PATH}")
+        pickle.dump(payload, f)
+    with open(FINAL_PATH, "wb") as f:
+        pickle.dump({**payload, "name": "lightgbm_final_2026"}, f)
+    print(f"\n  LightGBM saved       → {LGBM_PATH}")
+    print(f"  Production model     → {FINAL_PATH}")
     print("=" * 65)
 
 

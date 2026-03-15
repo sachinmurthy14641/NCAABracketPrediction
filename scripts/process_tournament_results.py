@@ -1,9 +1,9 @@
 """Process Kaggle March Madness data into a unified tournament results dataset.
 
 Loads game results, team names, and seeds from the Kaggle files and produces
-a clean CSV with one row per game for seasons 1997-2024.
+a clean CSV with one row per game for seasons 1997-2025.
 
-Output: data/historical/tournament_results_1997_2024.csv
+Output: data/historical/tournament_results_1997_2025.csv
 
 Usage::
 
@@ -21,10 +21,10 @@ from config.settings import PROCESSED_DATA_DIR
 from src.data.preprocessors import normalize_team_names
 
 KAGGLE_DIR = Path(__file__).resolve().parent.parent / "data" / "historical" / "kaggle"
-OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "historical" / "tournament_results_1997_2024.csv"
+OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "historical" / "tournament_results_1997_2025.csv"
 
 SEASON_MIN = 1997
-SEASON_MAX = 2024
+SEASON_MAX = 2025
 
 # Kaggle abbreviated names → KenPom full names
 KAGGLE_TO_KENPOM: dict[str, str] = {
@@ -54,10 +54,15 @@ KAGGLE_TO_KENPOM: dict[str, str] = {
     "F Dickinson":      "Fairleigh Dickinson",
     "FL Atlantic":      "Florida Atlantic",
     "FL Gulf Coast":    "Florida Gulf Coast",
+    "FGCU":             "Florida Gulf Coast",
     "Florida St":       "Florida St.",
     "Fresno St":        "Fresno St.",
     "G Washington":     "George Washington",
     "Georgia St":       "Georgia St.",
+    "Grambling":        "Grambling St.",
+    "McNeese St":       "McNeese St.",
+    "NE Omaha":         "Nebraska Omaha",
+    "St Francis PA":    "St. Francis PA",
     "IL Chicago":       "Illinois Chicago",
     "Indiana St":       "Indiana St.",
     "Iowa St":          "Iowa St.",

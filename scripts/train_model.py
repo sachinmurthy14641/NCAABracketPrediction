@@ -50,9 +50,9 @@ FEATURE_COLS = [
 LABEL_COL  = "winner"
 SEASON_COL = "season"
 
-TRAIN_MAX  = 2021
-VAL_SEASON = 2022
-TEST_SEASON = 2023
+TRAIN_MAX  = 2022
+VAL_SEASON = 2023
+TEST_SEASON = 2024
 
 
 # ---------------------------------------------------------------------------
@@ -121,7 +121,7 @@ def save_calibration_plot(model, X_test: np.ndarray, y_test: np.ndarray) -> Path
     ax.grid(True, alpha=0.3)
 
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-    out = REPORTS_DIR / "calibration_plot_logistic_v1.png"
+    out = REPORTS_DIR / "calibration_plot_logistic_v2.png"
     fig.savefig(out, dpi=150, bbox_inches="tight")
     plt.close(fig)
     return out
@@ -190,14 +190,14 @@ def main() -> None:
 
     # Step 5: Save model
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
-    model_path = MODELS_DIR / "baseline_logistic_v1.pkl"
-    meta_path  = MODELS_DIR / "baseline_logistic_v1_meta.csv"
+    model_path = MODELS_DIR / "baseline_logistic_v2.pkl"
+    meta_path  = MODELS_DIR / "baseline_logistic_v2_meta.csv"
 
     with open(model_path, "wb") as f:
-        pickle.dump({"model": model, "features": FEATURE_COLS, "name": "baseline_logistic_v1"}, f)
+        pickle.dump({"model": model, "features": FEATURE_COLS, "name": "baseline_logistic_v2"}, f)
 
     meta = pd.DataFrame([{
-        "model":       "baseline_logistic_v1",
+        "model":       "baseline_logistic_v2",
         "train_max":   TRAIN_MAX,
         "val_season":  VAL_SEASON,
         "test_season": TEST_SEASON,

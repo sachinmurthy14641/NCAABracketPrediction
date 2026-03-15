@@ -17,7 +17,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-TOURNAMENT_RESULTS_PATH = Path("data/historical/tournament_results_1997_2024.csv")
+TOURNAMENT_RESULTS_PATH = Path("data/historical/tournament_results_1997_2025.csv")
 KENPOM_PATH = Path("data/processed/kenpom_pretourney_1997_2025.csv")
 OUTPUT_PATH = Path("data/processed/training_data.csv")
 
