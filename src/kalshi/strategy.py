@@ -189,11 +189,36 @@ class NCAATradingStrategy:
         seed_a: Optional[int] = None,
         seed_b: Optional[int] = None,
     ) -> Optional[float]:
-        """Return P(team_a beats team_b), or None if data is unavailable."""
+        """Return P(team_a beats team_b), or None if data is unavailable.
+
+        Internally the model always receives features with the STRONGER team
+        (higher adj_em) listed first — the same convention used when building
+        the training data.  If the caller supplied teams in the opposite order
+        we flip the output probability so the return value is still
+        P(original team_a wins).
+        """
         canon_a = self._find_team(team_a)
         canon_b = self._find_team(team_b)
         if canon_a is None or canon_b is None:
             return None
+
+        idx   = self._kenpom.set_index("team")
+        a_row = idx.loc[canon_a]
+        b_row = idx.loc[canon_b]
+
+        # Resolve seeds: argument → seeds dict → neutral placeholder
+        sa = seed_a if seed_a is not None else self.seeds.get(canon_a, self.seeds.get(team_a, 8))
+        sb = seed_b if seed_b is not None else self.seeds.get(canon_b, self.seeds.get(team_b, 8))
+
+        # Always put the stronger team first so features match training convention
+        if b_row["adj_em"] > a_row["adj_em"]:
+            # Swap — model will predict P(stronger team wins); we'll flip at the end
+            canon_a, canon_b = canon_b, canon_a
+            a_row,   b_row   = b_row,   a_row
+            sa,      sb      = sb,      sa
+            flip = True
+        else:
+            flip = False
 
         try:
             kp_features = build_matchup_features(canon_a, canon_b, self._kenpom)
@@ -201,18 +226,9 @@ class NCAATradingStrategy:
             logger.warning("Feature build failed for %s vs %s: %s", team_a, team_b, exc)
             return None
 
-        # Resolve seeds: argument → seeds dict → neutral placeholder
-        sa = seed_a if seed_a is not None else self.seeds.get(canon_a, self.seeds.get(team_a, 8))
-        sb = seed_b if seed_b is not None else self.seeds.get(canon_b, self.seeds.get(team_b, 8))
-
-        # Raw KenPom stats for the individual-team features
-        idx = self._kenpom.set_index("team")
-        a_row = idx.loc[canon_a]
-        b_row = idx.loc[canon_b]
-
         row = {
             **kp_features,
-            "seed_diff":    sa - sb,
+            "seed_diff":     sa - sb,
             "a_adj_off_eff": a_row["adj_off_eff"],
             "a_adj_def_eff": a_row["adj_def_eff"],
             "a_adj_em":      a_row["adj_em"],
@@ -224,9 +240,13 @@ class NCAATradingStrategy:
         X    = pd.DataFrame([row])[self._features]
         prob = float(self._model["model"].predict_proba(X.values)[:, 1][0])
 
+        if flip:
+            prob = 1.0 - prob   # convert P(stronger wins) → P(original team_a wins)
+
         logger.debug(
-            "P(%s beats %s) = %.3f  [seeds %d vs %d]",
-            canon_a, canon_b, prob, sa, sb,
+            "P(%s beats %s) = %.3f  [seeds %d vs %d]%s",
+            team_a, team_b, prob, seed_a or sa, seed_b or sb,
+            "  [teams swapped internally]" if flip else "",
         )
         return prob
 
@@ -239,23 +259,93 @@ class NCAATradingStrategy:
         """Extract (team_a, team_b) from a Kalshi market title.
 
         Handles patterns:
+          - "Texas at NC St. Winner?"          ← KXNCAAMBGAME format
           - "Will Duke beat American?"
           - "Will Duke beat American on March 20?"
           - "Duke vs American winner"
           - "Duke vs. American"
         """
-        # Pattern 1: "Will TEAM_A beat TEAM_B"
+        # Pattern 1: "TEAM_A at TEAM_B Winner?" (KXNCAAMBGAME series)
+        m = re.search(r"^(.+?)\s+at\s+(.+?)\s+Winner\??$", title, re.IGNORECASE)
+        if m:
+            return normalize_team_name(m.group(1).strip()), normalize_team_name(m.group(2).strip())
+
+        # Pattern 2: "Will TEAM_A beat TEAM_B"
         m = re.search(r"Will (.+?) beat (.+?)(?:\s+on\b|\?|$)", title, re.IGNORECASE)
         if m:
             return normalize_team_name(m.group(1).strip()), normalize_team_name(m.group(2).strip())
 
-        # Pattern 2: "TEAM_A vs[.] TEAM_B"
+        # Pattern 3: "TEAM_A vs[.] TEAM_B"
         m = re.search(r"(.+?)\s+vs\.?\s+(.+?)(?:\s+winner|\?|$)", title, re.IGNORECASE)
         if m:
             return normalize_team_name(m.group(1).strip()), normalize_team_name(m.group(2).strip())
 
         logger.debug("Could not parse teams from title: '%s'", title)
         return None
+
+    @staticmethod
+    def _abbrev_candidates(canonical_name: str) -> set[str]:
+        """Generate possible ticker abbreviations for a team name.
+
+        Examples:
+            "Texas"    → {TE, TEX, TEXA, TEXAS}
+            "NC St."   → {NC, NCS, NCST}
+            "Miami OH" → {MI, MIA, MIAM, MIAMI, MO, MOH, MIAMIOH}
+        """
+        clean = re.sub(r"[^A-Za-z0-9 ]", "", canonical_name).upper().strip()
+        words = clean.split()
+        if not words:
+            return set()
+
+        nospace = "".join(words)
+        candidates: set[str] = set()
+
+        # Prefixes of the no-space concatenation (2–6 chars)
+        for n in range(2, min(7, len(nospace) + 1)):
+            candidates.add(nospace[:n])
+        candidates.add(nospace)
+
+        if len(words) >= 2:
+            # All-initials acronym: "NC St" → NS
+            candidates.add("".join(w[0] for w in words))
+            # First-char prefix + remaining words: "Miami OH" → M+OH = MOH
+            for i in range(1, len(words)):
+                prefix = "".join(w[0] for w in words[:i])
+                rest   = "".join(words[i:])
+                candidates.add(prefix + rest)
+
+        return candidates
+
+    @classmethod
+    def _identify_yes_team(
+        cls,
+        ticker: str,
+        team_a: str,
+        team_b: str,
+    ) -> str:
+        """Return whichever of team_a / team_b the ticker's YES side represents.
+
+        For KXNCAAMBGAME-26MAR17TEXNCST-TEX the suffix is 'TEX'.
+        We match that against abbreviation candidates for each team.
+        Falls back to team_a if no match found.
+        """
+        suffix = ticker.split("-")[-1].upper() if "-" in ticker else ""
+        if not suffix:
+            return team_a
+
+        cands_a = cls._abbrev_candidates(team_a)
+        cands_b = cls._abbrev_candidates(team_b)
+
+        if suffix in cands_a and suffix not in cands_b:
+            return team_a
+        if suffix in cands_b and suffix not in cands_a:
+            return team_b
+
+        logger.debug(
+            "Could not identify YES team from suffix '%s' for %s vs %s — defaulting to %s",
+            suffix, team_a, team_b, team_a,
+        )
+        return team_a
 
     # ------------------------------------------------------------------
     # Signal generation
@@ -342,24 +432,36 @@ class NCAATradingStrategy:
         Expected market keys: ticker, title, yes_price (cents).
         Seeds are looked up from self.seeds (call update_seeds() first).
 
+        For KXNCAAMBGAME markets each game has two tickers (one per team).
+        The ticker suffix identifies which team the YES side represents, so we
+        reorder team_a/team_b so that team_a is always the YES team.
+
         Returns None if teams can't be parsed, data is missing, or edge < MIN_EDGE.
         """
         ticker    = market.get("ticker", "")
         title     = market.get("title", "")
         yes_price = market.get("yes_price", market.get("yes_bid", 50))
 
+        if not self.seeds:
+            logger.warning("Seeds not yet loaded — using neutral seed=8 for all teams. "
+                           "Call update_seeds() after Selection Sunday.")
+
         teams = self._parse_teams_from_title(title)
         if teams is None:
             logger.warning("[%s] Could not parse teams from title: '%s'", ticker, title)
             return None
 
-        team_a, team_b = teams
+        parsed_a, parsed_b = teams
+
+        # Determine which team the YES side represents from the ticker suffix
+        yes_team = self._identify_yes_team(ticker, parsed_a, parsed_b)
+        if yes_team == parsed_a:
+            team_a, team_b = parsed_a, parsed_b
+        else:
+            team_a, team_b = parsed_b, parsed_a   # YES team first
+
         seed_a = self.seeds.get(team_a, 8)
         seed_b = self.seeds.get(team_b, 8)
-
-        if not self.seeds:
-            logger.warning("Seeds not yet loaded — using neutral seed=8 for all teams. "
-                           "Call update_seeds() after Selection Sunday.")
 
         return self.evaluate_matchup(team_a, seed_a, team_b, seed_b, yes_price, ticker)
 

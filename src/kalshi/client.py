@@ -86,7 +86,7 @@ class KalshiClient:
     # ------------------------------------------------------------------
 
     def get_ncaa_markets(self, series_ticker: Optional[str] = None) -> list[dict]:
-        """Return all active NCAA tournament markets."""
+        """Return all active NCAA tournament game markets (series KXNCAAMBGAME)."""
         from config.kalshi_config import NCAA_SERIES_TICKER
         ticker = series_ticker or NCAA_SERIES_TICKER
         self._throttle()
@@ -96,7 +96,7 @@ class KalshiClient:
             markets_api = kalshi_python.MarketsApi(self._api)
             resp = markets_api.get_markets(series_ticker=ticker, status="open")
             markets = resp.markets or []
-            logger.info("Fetched %d NCAA markets.", len(markets))
+            logger.info("Fetched %d NCAA markets (series=%s).", len(markets), ticker)
             return [self._market_to_dict(m) for m in markets]
         except Exception as exc:
             logger.error("Error fetching NCAA markets: %s", exc)
@@ -177,15 +177,41 @@ class KalshiClient:
 
     @staticmethod
     def _market_to_dict(market) -> dict:
+        def _to_cents(val) -> Optional[int]:
+            """Convert yes_bid/yes_bid_dollars to integer cents."""
+            if val is None:
+                return None
+            try:
+                # Already an int (cents)
+                if isinstance(val, int):
+                    return val
+                # Float or dollar string like "0.92" → 92 cents
+                return round(float(val) * 100)
+            except (ValueError, TypeError):
+                return None
+
+        yes_bid = _to_cents(
+            getattr(market, "yes_bid", None) or getattr(market, "yes_bid_dollars", None)
+        )
+        yes_ask = _to_cents(
+            getattr(market, "yes_ask", None) or getattr(market, "yes_ask_dollars", None)
+        )
+        no_bid = _to_cents(
+            getattr(market, "no_bid", None) or getattr(market, "no_bid_dollars", None)
+        )
+        no_ask = _to_cents(
+            getattr(market, "no_ask", None) or getattr(market, "no_ask_dollars", None)
+        )
+
         return {
-            "ticker":      getattr(market, "ticker", ""),
-            "title":       getattr(market, "title", ""),
-            "yes_bid":     getattr(market, "yes_bid", None),
-            "yes_ask":     getattr(market, "yes_ask", None),
-            "no_bid":      getattr(market, "no_bid", None),
-            "no_ask":      getattr(market, "no_ask", None),
-            "volume":      getattr(market, "volume", 0),
+            "ticker":        getattr(market, "ticker", ""),
+            "title":         getattr(market, "title", ""),
+            "yes_bid":       yes_bid,
+            "yes_ask":       yes_ask,
+            "no_bid":        no_bid,
+            "no_ask":        no_ask,
+            "volume":        getattr(market, "volume", 0),
             "open_interest": getattr(market, "open_interest", 0),
-            "status":      getattr(market, "status", ""),
-            "close_time":  getattr(market, "close_time", None),
+            "status":        getattr(market, "status", ""),
+            "close_time":    getattr(market, "close_time", None),
         }

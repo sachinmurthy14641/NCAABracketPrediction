@@ -45,7 +45,7 @@ KALSHI_PRIVATE_KEY_PATH = os.getenv(
 # ---------------------------------------------------------------------------
 # NCAA market configuration
 # ---------------------------------------------------------------------------
-NCAA_SERIES_TICKER              = "NCAAM"
+NCAA_SERIES_TICKER              = "KXNCAAMBGAME"
 KALSHI_MARKET_CACHE_TTL_SECONDS = 60
 
 # ---------------------------------------------------------------------------
