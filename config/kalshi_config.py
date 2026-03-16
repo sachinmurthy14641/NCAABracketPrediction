@@ -1,4 +1,13 @@
-"""Kalshi API configuration: endpoints, credentials, and trading parameters."""
+"""Kalshi API configuration: endpoints, credentials, and trading parameters.
+
+Switch between demo and live by changing one line in .env:
+    KALSHI_ENV=demo   # paper trading
+    KALSHI_ENV=live   # real money
+
+Credentials are auto-selected based on KALSHI_ENV:
+    demo → KALSHI_DEMO_API_KEY_ID + KALSHI_DEMO_PRIVATE_KEY_PATH
+    live → KALSHI_LIVE_API_KEY_ID + KALSHI_LIVE_PRIVATE_KEY_PATH
+"""
 
 import os
 
@@ -7,37 +16,46 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ---------------------------------------------------------------------------
+# Environment selection — change KALSHI_ENV in .env to switch
+# ---------------------------------------------------------------------------
+KALSHI_ENV = os.getenv("KALSHI_ENV", "demo").strip().lower()
+
+if KALSHI_ENV not in ("demo", "live"):
+    raise ValueError(f"KALSHI_ENV must be 'demo' or 'live', got: '{KALSHI_ENV}'")
+
+# ---------------------------------------------------------------------------
 # API endpoints
 # ---------------------------------------------------------------------------
-KALSHI_PROD_BASE_URL = "https://api.elections.kalshi.com/trade-api/v2"
-KALSHI_DEMO_BASE_URL = "https://demo-api.kalshi.co/trade-api/v2"
+_BASE_URLS = {
+    "demo": "https://demo-api.kalshi.co/trade-api/v2",
+    "live": "https://api.elections.kalshi.com/trade-api/v2",
+}
+KALSHI_BASE_URL = _BASE_URLS[KALSHI_ENV]
 
-# Set KALSHI_ENV=production in .env to trade live; defaults to demo
-KALSHI_ENV      = os.getenv("KALSHI_ENV", "demo").lower()
-KALSHI_BASE_URL = (
-    KALSHI_PROD_BASE_URL if KALSHI_ENV == "production" else KALSHI_DEMO_BASE_URL
+# ---------------------------------------------------------------------------
+# Credentials — auto-selected from named demo/live env vars
+# ---------------------------------------------------------------------------
+KALSHI_API_KEY_ID = os.getenv(
+    f"KALSHI_{KALSHI_ENV.upper()}_API_KEY_ID", ""
 )
-
-# ---------------------------------------------------------------------------
-# Credentials (loaded from .env — never hard-code these)
-# ---------------------------------------------------------------------------
-KALSHI_API_KEY_ID       = os.getenv("KALSHI_API_KEY_ID", "")
-KALSHI_PRIVATE_KEY_PATH = os.getenv("KALSHI_PRIVATE_KEY_PATH", "")
+KALSHI_PRIVATE_KEY_PATH = os.getenv(
+    f"KALSHI_{KALSHI_ENV.upper()}_PRIVATE_KEY_PATH", ""
+)
 
 # ---------------------------------------------------------------------------
 # NCAA market configuration
 # ---------------------------------------------------------------------------
-NCAA_SERIES_TICKER              = "NCAAM"  # NCAA Men's Tournament series ticker
-KALSHI_MARKET_CACHE_TTL_SECONDS = 60       # Cache market snapshots for 60 s
+NCAA_SERIES_TICKER              = "NCAAM"
+KALSHI_MARKET_CACHE_TTL_SECONDS = 60
 
 # ---------------------------------------------------------------------------
 # Trading risk parameters
 # ---------------------------------------------------------------------------
-MIN_EDGE_THRESHOLD   = 0.05     # Minimum probability edge to trigger a trade (5 %)
-MAX_POSITION_SIZE    = 100      # Maximum contracts per single order
-MAX_DAILY_LOSS_CENTS = 10_000   # Hard stop: $100 daily loss limit (in cents)
+MIN_EDGE_THRESHOLD   = 0.05      # 5% minimum edge to trigger a trade
+MAX_POSITION_SIZE    = 100       # max contracts per order
+MAX_DAILY_LOSS_CENTS = 10_000    # $100 hard stop (in cents)
 
 # ---------------------------------------------------------------------------
 # Rate limiting
 # ---------------------------------------------------------------------------
-REQUESTS_PER_SECOND = 10  # Kalshi API rate limit
+REQUESTS_PER_SECOND = 10
