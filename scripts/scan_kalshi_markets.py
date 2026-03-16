@@ -36,6 +36,45 @@ logger = logging.getLogger(__name__)
 LOGS_DIR = Path("outputs/logs")
 NCAA_KEYWORDS = ["ncaa", "march madness", "tournament", "ncaam"]
 
+# ===========================================================================
+# SEEDS — 2026 tournament bracket
+# ===========================================================================
+SEEDS_2026 = {
+    # No. 1 seeds
+    'Duke': 1, 'Arizona': 1, 'Michigan': 1, 'Florida': 1,
+    # No. 2 seeds
+    'Houston': 2, 'UConn': 2, 'Iowa St.': 2, 'Purdue': 2,
+    # No. 3 seeds
+    'Michigan St.': 3, 'Illinois': 3, 'Gonzaga': 3, 'Virginia': 3,
+    # No. 4 seeds
+    'Nebraska': 4, 'Alabama': 4, 'Kansas': 4, 'Arkansas': 4,
+    # No. 5 seeds
+    'Vanderbilt': 5, "St. John's": 5, 'Texas Tech': 5, 'Wisconsin': 5,
+    # No. 6 seeds
+    'Tennessee': 6, 'North Carolina': 6, 'Louisville': 6, 'BYU': 6,
+    # No. 7 seeds
+    'Kentucky': 7, "Saint Mary's": 7, 'Miami': 7, 'UCLA': 7,
+    # No. 8 seeds
+    'Clemson': 8, 'Villanova': 8, 'Ohio St.': 8, 'Georgia': 8,
+    # No. 9 seeds
+    'Utah St.': 9, 'TCU': 9, 'Saint Louis': 9, 'Iowa': 9,
+    # No. 10 seeds
+    'Santa Clara': 10, 'UCF': 10, 'Missouri': 10, 'Texas A&M': 10,
+    # No. 11 seeds (First Four)
+    'NC State': 11, 'Texas': 11, 'SMU': 11, 'Miami OH': 11, 'VCU': 11, 'South Florida': 11,
+    # No. 12 seeds
+    'McNeese': 12, 'Akron': 12, 'Northern Iowa': 12, 'High Point': 12,
+    # No. 13 seeds
+    'Cal Baptist': 13, 'Hofstra': 13, 'Troy': 13, 'Hawaii': 13,
+    # No. 14 seeds
+    'North Dakota St.': 14, 'Penn': 14, 'Wright St.': 14, 'Kennesaw St.': 14,
+    # No. 15 seeds
+    'Tennessee St.': 15, 'Idaho': 15, 'Furman': 15, 'Queens': 15,
+    # No. 16 seeds (First Four)
+    'Siena': 16, 'LIU': 16, 'Howard': 16, 'UMBC': 16, 'Lehigh': 16, 'Prairie View': 16,
+}
+# ===========================================================================
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -177,10 +216,8 @@ def main() -> None:
     print()
 
     strategy = NCAATradingStrategy()
-
-    if not strategy.seeds:
-        print("  NOTE: Seeds not loaded. Call strategy.update_seeds() after Selection Sunday.")
-        print("        Using neutral seed=8 for all teams until then.\n")
+    strategy.update_seeds(SEEDS_2026)
+    print(f"  Seeds loaded: {len(SEEDS_2026)} teams\n")
 
     scan_count = 0
 
