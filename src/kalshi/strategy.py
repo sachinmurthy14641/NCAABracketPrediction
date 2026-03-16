@@ -30,6 +30,7 @@ from typing import Optional
 import pandas as pd
 
 from src.features.team_stats import build_matchup_features
+from src.utils.team_mapping import normalize_team_name, find_closest_kenpom_team
 
 logger = logging.getLogger(__name__)
 
@@ -150,22 +151,31 @@ class NCAATradingStrategy:
     # ------------------------------------------------------------------
 
     def _find_team(self, name: str) -> Optional[str]:
-        """Return canonical KenPom team name, with fuzzy fallback."""
-        teams = self._kenpom["team"]
+        """Return canonical KenPom team name.
 
-        # Exact match
-        exact = teams[teams.str.lower() == name.lower()]
+        Resolution order:
+          1. Normalize via TEAM_NAME_MAPPING (strips mascots, maps variants)
+          2. Exact match against KenPom roster
+          3. Fuzzy match via difflib (cutoff=0.75)
+        """
+        teams      = self._kenpom["team"]
+        teams_list = teams.tolist()
+        normalized = normalize_team_name(name)
+
+        # Exact match (case-insensitive) on normalized name
+        exact = teams[teams.str.lower() == normalized.lower()]
         if not exact.empty:
+            if normalized != name:
+                logger.debug("Mapped '%s' → '%s'", name, exact.iloc[0])
             return exact.iloc[0]
 
-        # Contains match
-        fuzzy = teams[teams.str.lower().str.contains(name.lower(), na=False)]
-        if not fuzzy.empty:
-            match = fuzzy.iloc[0]
-            logger.debug("Fuzzy matched '%s' → '%s'", name, match)
-            return match
+        # Fuzzy match as last resort
+        fuzzy = find_closest_kenpom_team(normalized, teams_list, cutoff=0.75)
+        if fuzzy:
+            logger.debug("Fuzzy matched '%s' (normalized: '%s') → '%s'", name, normalized, fuzzy)
+            return fuzzy
 
-        logger.warning("Team not found in KenPom 2026: '%s'", name)
+        logger.warning("Team not found in KenPom 2026: '%s' (normalized: '%s')", name, normalized)
         return None
 
     # ------------------------------------------------------------------
@@ -237,12 +247,12 @@ class NCAATradingStrategy:
         # Pattern 1: "Will TEAM_A beat TEAM_B"
         m = re.search(r"Will (.+?) beat (.+?)(?:\s+on\b|\?|$)", title, re.IGNORECASE)
         if m:
-            return m.group(1).strip(), m.group(2).strip()
+            return normalize_team_name(m.group(1).strip()), normalize_team_name(m.group(2).strip())
 
         # Pattern 2: "TEAM_A vs[.] TEAM_B"
         m = re.search(r"(.+?)\s+vs\.?\s+(.+?)(?:\s+winner|\?|$)", title, re.IGNORECASE)
         if m:
-            return m.group(1).strip(), m.group(2).strip()
+            return normalize_team_name(m.group(1).strip()), normalize_team_name(m.group(2).strip())
 
         logger.debug("Could not parse teams from title: '%s'", title)
         return None
