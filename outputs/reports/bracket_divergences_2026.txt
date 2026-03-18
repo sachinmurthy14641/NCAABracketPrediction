@@ -1,0 +1,3 @@
+No divergences — Strategy A (Chalk) and Strategy B (Momentum) are identical.
+Reason: Momentum model was not recommended by ablation test.
+Run 'python scripts/add_momentum_features.py --season 2026 --retrain' after tournament data is available to update this recommendation.

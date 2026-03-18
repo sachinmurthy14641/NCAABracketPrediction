@@ -1,0 +1,110 @@
+{
+  "_source": "Yahoo Sports / NCAA.com — verified March 15-17 2026",
+  "_note": "Single source of truth for 2026 NCAA Tournament bracket. Load via fill_bracket_2026.py. Do not edit manually.",
+  "first_four": [
+    {
+      "id": "FF1",
+      "date": "Tue Mar 17",
+      "team_a": "UMBC",       "seed_a": 16,
+      "team_b": "Howard",     "seed_b": 16,
+      "winner_slot": {"region": "Midwest", "seed": 16, "opponent": "Michigan"}
+    },
+    {
+      "id": "FF2",
+      "date": "Tue Mar 17",
+      "team_a": "Texas",      "seed_a": 11,
+      "team_b": "NC State",   "seed_b": 11,
+      "winner_slot": {"region": "West", "seed": 11, "opponent": "BYU"}
+    },
+    {
+      "id": "FF3",
+      "date": "Wed Mar 18",
+      "team_a": "Prairie View A&M", "seed_a": 16,
+      "team_b": "Lehigh",           "seed_b": 16,
+      "winner_slot": {"region": "South", "seed": 16, "opponent": "Florida"}
+    },
+    {
+      "id": "FF4",
+      "date": "Wed Mar 18",
+      "team_a": "Miami (Ohio)", "seed_a": 11,
+      "team_b": "SMU",          "seed_b": 11,
+      "winner_slot": {"region": "Midwest", "seed": 11, "opponent": "Tennessee"}
+    }
+  ],
+  "regions": {
+    "East": {
+      "one_seed": "Duke",
+      "two_seed": "UConn",
+      "location": "Washington D.C.",
+      "elite_eight_dates": "March 27/29",
+      "final_four_matchup": "vs South champion",
+      "matchups": [
+        {"seed_a": 1,  "team_a": "Duke",              "seed_b": 16, "team_b": "Siena"},
+        {"seed_a": 8,  "team_a": "Ohio State",         "seed_b": 9,  "team_b": "TCU"},
+        {"seed_a": 5,  "team_a": "St. John's",         "seed_b": 12, "team_b": "Northern Iowa"},
+        {"seed_a": 4,  "team_a": "Kansas",              "seed_b": 13, "team_b": "Cal Baptist"},
+        {"seed_a": 6,  "team_a": "Louisville",          "seed_b": 11, "team_b": "South Florida"},
+        {"seed_a": 3,  "team_a": "Michigan State",      "seed_b": 14, "team_b": "North Dakota State"},
+        {"seed_a": 7,  "team_a": "UCLA",                "seed_b": 10, "team_b": "UCF"},
+        {"seed_a": 2,  "team_a": "UConn",               "seed_b": 15, "team_b": "Furman"}
+      ]
+    },
+    "West": {
+      "one_seed": "Arizona",
+      "two_seed": "Purdue",
+      "location": "San Jose",
+      "elite_eight_dates": "March 26/28",
+      "final_four_matchup": "vs Midwest champion",
+      "matchups": [
+        {"seed_a": 1,  "team_a": "Arizona",             "seed_b": 16, "team_b": "Long Island University"},
+        {"seed_a": 8,  "team_a": "Villanova",            "seed_b": 9,  "team_b": "Utah State"},
+        {"seed_a": 5,  "team_a": "Wisconsin",            "seed_b": 12, "team_b": "High Point"},
+        {"seed_a": 4,  "team_a": "Arkansas",             "seed_b": 13, "team_b": "Hawaii"},
+        {"seed_a": 6,  "team_a": "BYU",                  "seed_b": 11, "team_b": "FF2_winner"},
+        {"seed_a": 3,  "team_a": "Gonzaga",              "seed_b": 14, "team_b": "Kennesaw State"},
+        {"seed_a": 7,  "team_a": "Miami (Fla.)",         "seed_b": 10, "team_b": "Missouri"},
+        {"seed_a": 2,  "team_a": "Purdue",               "seed_b": 15, "team_b": "Queens"}
+      ]
+    },
+    "Midwest": {
+      "one_seed": "Michigan",
+      "two_seed": "Iowa State",
+      "location": "Chicago",
+      "elite_eight_dates": "March 27/29",
+      "final_four_matchup": "vs West champion",
+      "matchups": [
+        {"seed_a": 1,  "team_a": "Michigan",             "seed_b": 16, "team_b": "FF1_winner"},
+        {"seed_a": 8,  "team_a": "Georgia",              "seed_b": 9,  "team_b": "Saint Louis"},
+        {"seed_a": 5,  "team_a": "Texas Tech",           "seed_b": 12, "team_b": "Akron"},
+        {"seed_a": 4,  "team_a": "Alabama",              "seed_b": 13, "team_b": "Hofstra"},
+        {"seed_a": 6,  "team_a": "Tennessee",            "seed_b": 11, "team_b": "FF4_winner"},
+        {"seed_a": 3,  "team_a": "Virginia",             "seed_b": 14, "team_b": "Wright State"},
+        {"seed_a": 7,  "team_a": "Kentucky",             "seed_b": 10, "team_b": "Santa Clara"},
+        {"seed_a": 2,  "team_a": "Iowa State",           "seed_b": 15, "team_b": "Tennessee State"}
+      ]
+    },
+    "South": {
+      "one_seed": "Florida",
+      "two_seed": "Houston",
+      "location": "Houston",
+      "elite_eight_dates": "March 26/28",
+      "final_four_matchup": "vs East champion",
+      "matchups": [
+        {"seed_a": 1,  "team_a": "Florida",              "seed_b": 16, "team_b": "FF3_winner"},
+        {"seed_a": 8,  "team_a": "Clemson",              "seed_b": 9,  "team_b": "Iowa"},
+        {"seed_a": 5,  "team_a": "Vanderbilt",           "seed_b": 12, "team_b": "McNeese"},
+        {"seed_a": 4,  "team_a": "Nebraska",             "seed_b": 13, "team_b": "Troy"},
+        {"seed_a": 6,  "team_a": "North Carolina",       "seed_b": 11, "team_b": "VCU"},
+        {"seed_a": 3,  "team_a": "Illinois",             "seed_b": 14, "team_b": "Penn"},
+        {"seed_a": 7,  "team_a": "Saint Mary's",         "seed_b": 10, "team_b": "Texas A&M"},
+        {"seed_a": 2,  "team_a": "Houston",              "seed_b": 15, "team_b": "Idaho"}
+      ]
+    }
+  },
+  "final_four": {
+    "location": "Indianapolis",
+    "dates": "April 4 (semis) / April 6 (championship)",
+    "semifinal_1": "East champion vs South champion",
+    "semifinal_2": "West champion vs Midwest champion"
+  }
+}

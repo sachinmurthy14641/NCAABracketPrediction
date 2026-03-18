@@ -1,0 +1,166 @@
+============================================================================
+  2026 NCAA FANTASY AUCTION CHEAT SHEET
+  Budget: $200  |  Generated: 2026-03-18 00:20
+  Model: lightgbm_final_2026 (13 features)
+  Bracket Source: NCAA.com official (corrected March 17 2026)
+============================================================================
+
+
+────────────────────────────────────────────────────────────────────────────
+  ELITE ANCHORS  (seeds 1-2 — expect heavy bidding)
+────────────────────────────────────────────────────────────────────────────
+  Team                    Sd Region       EFP    Val$    Tgt$    Max$  Champ%   Sig Momentum
+  -------------------------------------------------------------------------
+  Duke                   #1  East       26.97 $ 24.04 $ 27.46 $ 36.61   87.7%  ▲BUY  FLAT
+  Arizona                #1  West       17.25 $ 19.53 $ 17.57 $ 23.42    3.0%   ---  FLAT
+  Michigan               #1  Midwest     6.32 $ 14.46 $  6.43 $  8.57    0.1%  ▼SEL  ICY
+  Florida                #1  South       6.20 $ 14.41 $  6.31 $  8.42    0.0%  ▼SEL  FLAT
+  Iowa State             #2  Midwest     2.10 $  5.17 $  2.14 $  2.85    0.0%  ▼SEL  ICY
+  Purdue                 #2  West        2.09 $  5.16 $  2.12 $  2.83    0.0%  ▼SEL  ICY
+  Houston                #2  South       2.09 $  5.16 $  2.12 $  2.83    0.0%  ▼SEL  ICY
+  UConn                  #2  East        2.05 $  5.15 $  2.09 $  2.79    0.0%  ▼SEL  FLAT
+
+────────────────────────────────────────────────────────────────────────────
+  VALUE TARGETS  (BUY signal, seeds 3-8 — model > market)
+────────────────────────────────────────────────────────────────────────────
+  Team                    Sd Region       EFP    Val$    Tgt$    Max$  Champ%   Sig Momentum
+  -------------------------------------------------------------------------
+  Louisville             #6  East        9.07 $  5.05 $  9.24 $ 12.32    0.8%  ▲BUY  ICY
+  North Carolina         #6  South       8.90 $  4.97 $  9.06 $ 12.09    0.0%  ▲BUY  ICY
+  Texas Tech             #5  Midwest     6.82 $  4.00 $  6.94 $  9.25    0.0%  ▲BUY  WARM
+  Vanderbilt             #5  South       6.66 $  3.93 $  6.78 $  9.04    0.0%  ▲BUY  ICY
+  St. John's             #5  East        5.97 $  3.61 $  6.08 $  8.11    1.0%  ▲BUY  ICY
+  Wisconsin              #5  West        5.74 $  3.50 $  5.84 $  7.79    0.0%  ▲BUY  WARM
+  Kentucky               #7  Midwest     5.95 $  3.39 $  6.06 $  8.07    0.0%  ▲BUY  ICY
+  Miami (Fla.)           #7  West        5.91 $  3.37 $  6.02 $  8.03    0.0%  ▲BUY  FLAT
+  Saint Mary's           #7  South       5.51 $  3.19 $  5.61 $  7.48    0.0%  ▲BUY  FLAT
+  UCLA                   #7  East        5.45 $  3.16 $  5.55 $  7.39    0.0%  ▲BUY  ICY
+  Tennessee              #6  Midwest     4.67 $  3.00 $  4.75 $  6.33    0.0%  ▲BUY  ICY
+  BYU                    #6  West        4.44 $  2.90 $  4.52 $  6.03    0.0%  ▲BUY  ICY
+  Clemson                #8  South       4.76 $  2.84 $  4.85 $  6.47    0.0%  ▲BUY  COLD
+  Georgia                #8  Midwest     4.58 $  2.76 $  4.67 $  6.22    0.1%  ▲BUY  ICY
+  Ohio State             #8  East        1.68 $  1.41 $  1.71 $  2.28    1.1%  ▲BUY  ICY
+  Villanova              #8  West        1.51 $  1.33 $  1.54 $  2.05    0.1%  ▲BUY  ICY
+
+────────────────────────────────────────────────────────────────────────────
+  FADES  (SELL signal — market overpays; let others have them)
+────────────────────────────────────────────────────────────────────────────
+  Team                    Sd Region       EFP    Val$    Tgt$    Max$  Champ%   Sig Momentum
+  -------------------------------------------------------------------------
+  Michigan               #1  Midwest     6.32 $ 14.46 $  6.43 $  8.57    0.1%  ▼SEL  ICY
+  Florida                #1  South       6.20 $ 14.41 $  6.31 $  8.42    0.0%  ▼SEL  FLAT
+  Iowa State             #2  Midwest     2.10 $  5.17 $  2.14 $  2.85    0.0%  ▼SEL  ICY
+  Purdue                 #2  West        2.09 $  5.16 $  2.12 $  2.83    0.0%  ▼SEL  ICY
+  Houston                #2  South       2.09 $  5.16 $  2.12 $  2.83    0.0%  ▼SEL  ICY
+  UConn                  #2  East        2.05 $  5.15 $  2.09 $  2.79    0.0%  ▼SEL  FLAT
+  Illinois               #3  South       2.13 $  3.08 $  2.17 $  2.89    0.0%  ▼SEL  ICY
+  Michigan State         #3  East        1.83 $  2.95 $  1.86 $  2.49    0.0%  ▼SEL  ICY
+  Kansas                 #4  East        1.72 $  2.06 $  1.75 $  2.33    0.0%  ▼SEL  ICY
+  Arkansas               #4  West        1.65 $  2.02 $  1.68 $  2.24    0.0%  ▼SEL  ICY
+  Alabama                #4  Midwest     1.64 $  2.02 $  1.67 $  2.23    0.0%  ▼SEL  FLAT
+  TCU                    #9  East        0.04 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Siena                  #16 East        0.05 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Akron                  #12 Midwest     0.08 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Saint Louis            #9  Midwest     0.09 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Missouri               #10 West        0.07 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Queens                 #15 West        0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Hawaii                 #13 West        0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  High Point             #12 West        0.06 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Kennesaw State         #14 West        0.05 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Utah State             #9  West        0.04 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  North Dakota State     #14 East        0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  South Florida          #11 East        0.12 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Northern Iowa          #12 East        0.06 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Cal Baptist            #13 East        0.02 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Furman                 #15 East        0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  UCF                    #10 East        0.06 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Long Island University #16 West        0.08 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Santa Clara            #10 Midwest     0.07 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Troy                   #13 South       0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  McNeese                #12 South       0.07 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Tennessee State        #15 Midwest     0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Iowa                   #9  South       0.06 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Wright State           #14 Midwest     0.05 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Hofstra                #13 Midwest     0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Penn                   #14 South       0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  VCU                    #11 South       0.13 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Idaho                  #15 South       0.04 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Texas A&M              #10 South       0.06 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Howard                 #16 Midwest     0.18 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  NC State               #11 West        0.02 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Lehigh                 #16 South       0.04 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  SMU                    #11 Midwest     0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+
+────────────────────────────────────────────────────────────────────────────
+  FLIERS  (seeds 12+ with BUY signal — cheap lottery tickets)
+────────────────────────────────────────────────────────────────────────────
+  Team                    Sd Region       EFP    Val$    Tgt$    Max$  Champ%   Sig Momentum
+  -------------------------------------------------------------------------
+  UMBC                   #16 Midwest     1.05 $  0.91 $  1.07 $  1.43    0.0%  ▲BUY  HOT
+  Prairie View A&M       #16 South       1.20 $  0.91 $  1.22 $  1.63    0.0%  ▲BUY  COLD
+
+────────────────────────────────────────────────────────────────────────────
+  ALL FLIERS  (seeds 12+ — full cheap-team reference list)
+────────────────────────────────────────────────────────────────────────────
+  Team                    Sd Region       EFP    Val$    Tgt$    Max$  Champ%   Sig Momentum
+  -------------------------------------------------------------------------
+  Siena                  #16 East        0.05 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Akron                  #12 Midwest     0.08 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Queens                 #15 West        0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Hawaii                 #13 West        0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  High Point             #12 West        0.06 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Kennesaw State         #14 West        0.05 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  North Dakota State     #14 East        0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Northern Iowa          #12 East        0.06 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Cal Baptist            #13 East        0.02 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Furman                 #15 East        0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Long Island University #16 West        0.08 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Troy                   #13 South       0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  McNeese                #12 South       0.07 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  FLAT
+  Tennessee State        #15 Midwest     0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Wright State           #14 Midwest     0.05 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Hofstra                #13 Midwest     0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Penn                   #14 South       0.03 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  Idaho                  #15 South       0.04 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  ICY
+  Howard                 #16 Midwest     0.18 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+  UMBC                   #16 Midwest     1.05 $  0.91 $  1.07 $  1.43    0.0%  ▲BUY  HOT
+  Prairie View A&M       #16 South       1.20 $  0.91 $  1.22 $  1.63    0.0%  ▲BUY  COLD
+  Lehigh                 #16 South       0.04 $  0.91 $  1.00 $  1.00    0.0%  ▼SEL  WARM
+
+============================================================================
+  BUDGET OPTIMIZER — ANCHOR — ELITE 1-SEED + BEST VALUE FILL
+============================================================================
+  Team                    Sd Region    Momentum    Tgt$    Max$    EFP  Champ%   Sig
+  ------------------------------------------------------------------------
+  Duke                   #1  East      FLAT     $ 27.46 $ 36.61  26.97   87.7%  ▲BUY
+  Purdue                 #2  West      ICY      $  2.12 $  2.83   2.09    0.0%  ▼SEL
+  Houston                #2  South     ICY      $  2.12 $  2.83   2.09    0.0%  ▼SEL
+  Nebraska               #4  South     ICY      $  1.95 $  2.61   1.92    0.0%   ---
+  Texas                  #11 West      ICY      $  1.24 $  1.65   1.22    0.0%  ▲BUY
+  Michigan State         #3  East      ICY      $  1.86 $  2.49   1.83    0.0%  ▼SEL
+  Miami (Ohio)           #11 Midwest   FLAT     $  1.23 $  1.64   1.21    0.0%  ▲BUY
+  Prairie View A&M       #16 South     COLD     $  1.22 $  1.63   1.20    0.0%  ▲BUY
+  Tennessee              #6  Midwest   ICY      $  4.75 $  6.33   4.67    0.0%  ▲BUY
+  Michigan               #1  Midwest   ICY      $  6.43 $  8.57   6.32    0.1%  ▼SEL
+
+  Total cost (target bids): $50.38 / $200  |  Remaining: $149.62
+  Projected EFP: 49.52 pts
+
+============================================================================
+  BUDGET OPTIMIZER — BALANCED — NO 1-SEEDS, BUY-SIGNAL HEAVY
+============================================================================
+  Team                    Sd Region    Momentum    Tgt$    Max$    EFP  Champ%   Sig
+  ------------------------------------------------------------------------
+  Texas                  #11 West      ICY      $  1.24 $  1.65   1.22    0.0%  ▲BUY
+  Miami (Ohio)           #11 Midwest   FLAT     $  1.23 $  1.64   1.21    0.0%  ▲BUY
+  Prairie View A&M       #16 South     COLD     $  1.22 $  1.63   1.20    0.0%  ▲BUY
+  Tennessee              #6  Midwest   ICY      $  4.75 $  6.33   4.67    0.0%  ▲BUY
+  Wisconsin              #5  West      WARM     $  5.84 $  7.79   5.74    0.0%  ▲BUY
+  Texas Tech             #5  Midwest   WARM     $  6.94 $  9.25   6.82    0.0%  ▲BUY
+  Ohio State             #8  East      ICY      $  1.71 $  2.28   1.68    1.1%  ▲BUY
+  North Carolina         #6  South     ICY      $  9.06 $ 12.09   8.90    0.0%  ▲BUY
+  BYU                    #6  West      ICY      $  4.52 $  6.03   4.44    0.0%  ▲BUY
+  Vanderbilt             #5  South     ICY      $  6.78 $  9.04   6.66    0.0%  ▲BUY
+
+  Total cost (target bids): $43.29 / $200  |  Remaining: $156.71
+  Projected EFP: 42.54 pts

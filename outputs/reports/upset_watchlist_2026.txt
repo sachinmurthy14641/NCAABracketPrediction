@@ -1,0 +1,39 @@
+======================================================================
+  2026 NCAA TOURNAMENT UPSET WATCHLIST (Top 15)
+======================================================================
+
+ 1. [R32] 5 Wisconsin (WARM)  over  4 Arkansas (ICY)
+      P(upset)=98.9%  mom_mult=×1.3  score=1.928  pts=2  → WORTH WATCHING
+
+ 2. [R32] 5 Texas Tech (WARM)  over  4 Alabama (FLAT)
+      P(upset)=99.0%  mom_mult=×1.0  score=1.486  pts=2  → WORTH WATCHING
+
+ 3. [R32] 5 St. John's (ICY)  over  4 Kansas (ICY)
+      P(upset)=99.0%  mom_mult=×1.0  score=1.485  pts=2  → WORTH WATCHING
+
+ 4. [R32] 5 Vanderbilt (ICY)  over  4 Nebraska (ICY)
+      P(upset)=99.0%  mom_mult=×1.0  score=1.485  pts=2  → WORTH WATCHING
+
+ 5. [R32] 6 Louisville (ICY)  over  3 Michigan State (ICY)
+      P(upset)=98.9%  mom_mult=×1.0  score=1.484  pts=2  → WORTH WATCHING
+
+ 6. [R32] 6 BYU (ICY)  over  3 Gonzaga (FLAT)
+      P(upset)=99.0%  mom_mult=×1.0  score=1.484  pts=2  → WORTH WATCHING
+
+ 7. [R32] 7 Miami (Fla.) (FLAT)  over  2 Purdue (ICY)
+      P(upset)=98.9%  mom_mult=×1.0  score=1.484  pts=2  → WORTH WATCHING
+
+ 8. [R32] 6 Tennessee (ICY)  over  3 Virginia (ICY)
+      P(upset)=98.9%  mom_mult=×1.0  score=1.484  pts=2  → WORTH WATCHING
+
+ 9. [R32] 7 Kentucky (ICY)  over  2 Iowa State (ICY)
+      P(upset)=98.9%  mom_mult=×1.0  score=1.484  pts=2  → WORTH WATCHING
+
+10. [R32] 7 Saint Mary's (FLAT)  over  2 Houston (ICY)
+      P(upset)=98.9%  mom_mult=×1.0  score=1.484  pts=2  → WORTH WATCHING
+
+11. [R32] 6 North Carolina (ICY)  over  3 Illinois (ICY)
+      P(upset)=98.9%  mom_mult=×1.0  score=1.483  pts=2  → WORTH WATCHING
+
+12. [R32] 7 UCLA (ICY)  over  2 UConn (FLAT)
+      P(upset)=98.8%  mom_mult=×1.0  score=1.482  pts=2  → WORTH WATCHING

@@ -1,0 +1,135 @@
+NOTE: Momentum model not recommended by ablation — Strategy B = Strategy A (shown once).
+
+==========================================================================================
+  2026 NCAA TOURNAMENT BRACKET PREDICTIONS
+  Strategy A — Chalk   : lightgbm_final_2026 (13 features)
+  Strategy C — Pool Opt: Pool Optimizer (pool-size=50, 10,000 sims)
+==========================================================================================
+
+======================================== EAST REGION ========================================
+
+  — R64 —
+   1 Duke                   [    ]  vs  16 Siena                  [ICY ]  → Duke                   99.1%  ✓chalk ✓momentum
+   8 Ohio State             [ICY ]  vs   9 TCU                    [    ]  → Ohio State             99.0%  ✓chalk ✓momentum
+   5 St. John's             [ICY ]  vs  12 Northern Iowa          [WARM]  → St. John's             99.2%  ✓chalk ✓momentum
+   4 Kansas                 [ICY ]  vs  13 Cal Baptist            [ICY ]  → Kansas                 99.2%  ✓chalk ✓momentum
+   6 Louisville             [ICY ]  vs  11 South Florida          [WARM]  → Louisville             99.1%  ✓chalk ✓momentum
+   3 Michigan State         [ICY ]  vs  14 North Dakota State     [    ]  → Michigan State         99.2%  ✓chalk ✓momentum
+   7 UCLA                   [ICY ]  vs  10 UCF                    [ICY ]  → UCLA                   99.1%  ✓chalk ✓momentum
+   2 UConn                  [    ]  vs  15 Furman                 [ICY ]  → UConn                  99.2%  ✓chalk ✓momentum
+
+  — R32 —
+   1 Duke                   [    ]  vs   8 Ohio State             [ICY ]  → Duke                   99.1%  ✓chalk ✓momentum
+   5 St. John's             [ICY ]  vs   4 Kansas                 [ICY ]  → St. John's             99.0%  ✓chalk ✓momentum ← UPSET ALERT
+   6 Louisville             [ICY ]  vs   3 Michigan State         [ICY ]  → Louisville             98.9%  ✓chalk ✓momentum ← UPSET ALERT
+   7 UCLA                   [ICY ]  vs   2 UConn                  [    ]  → UCLA                   98.8%  ✓chalk ✓momentum ← UPSET ALERT
+
+  — S16 —
+   1 Duke                   [    ]  vs   5 St. John's             [ICY ]  → Duke                   99.1%  ✓chalk ✓momentum
+   6 Louisville             [ICY ]  vs   7 UCLA                   [ICY ]  → Louisville             99.1%  ✓chalk ✓momentum
+
+  — E8 —
+   1 Duke                   [    ]  vs   6 Louisville             [ICY ]  → Duke                   99.1%  ✓chalk ✓momentum
+
+  Regional Champion:
+    Chalk:     1 Duke
+
+======================================== WEST REGION ========================================
+
+  — R64 —
+   1 Arizona                [    ]  vs  16 Long Island University [    ]  → Arizona                99.1%  ✓chalk ✓momentum
+   8 Villanova              [ICY ]  vs   9 Utah State             [ICY ]  → Villanova              99.0%  ✓chalk ✓momentum
+   5 Wisconsin              [WARM]  vs  12 High Point             [WARM]  → Wisconsin              99.1%  ✓chalk ✓momentum
+   4 Arkansas               [ICY ]  vs  13 Hawaii                 [ICY ]  → Arkansas               99.0%  ✓chalk ✓momentum
+   6 BYU                    [ICY ]  vs  11 Texas                  [ICY ]  → BYU                    99.1%  ✓chalk ✓momentum
+   3 Gonzaga                [    ]  vs  14 Kennesaw State         [    ]  → Gonzaga                99.2%  ✓chalk ✓momentum
+   7 Miami (Fla.)           [    ]  vs  10 Missouri               [ICY ]  → Miami (Fla.)           99.1%  ✓chalk ✓momentum
+   2 Purdue                 [ICY ]  vs  15 Queens                 [    ]  → Purdue                 99.0%  ✓chalk ✓momentum
+
+  — R32 —
+   1 Arizona                [    ]  vs   8 Villanova              [ICY ]  → Arizona                99.1%  ✓chalk ✓momentum
+   5 Wisconsin              [WARM]  vs   4 Arkansas               [ICY ]  → Wisconsin              98.9%  ✓chalk ✓momentum ← UPSET ALERT
+   6 BYU                    [ICY ]  vs   3 Gonzaga                [    ]  → BYU                    99.0%  ✓chalk ✓momentum ← UPSET ALERT
+   7 Miami (Fla.)           [    ]  vs   2 Purdue                 [ICY ]  → Miami (Fla.)           98.9%  ✓chalk ✓momentum ← UPSET ALERT
+
+  — S16 —
+   1 Arizona                [    ]  vs   5 Wisconsin              [WARM]  → Arizona                99.1%  ✓chalk ✓momentum
+   6 BYU                    [ICY ]  vs   7 Miami (Fla.)           [    ]  → BYU                    99.0%  ✓chalk ✓momentum
+
+  — E8 —
+   1 Arizona                [    ]  vs   6 BYU                    [ICY ]  → Arizona                99.1%  ✓chalk ✓momentum
+
+  Regional Champion:
+    Chalk:     1 Arizona
+
+======================================== SOUTH REGION ========================================
+
+  — R64 —
+   1 Florida                [    ]  vs  16 Prairie View A&M       [COLD]  → Florida                99.1%  ✓chalk ✓momentum
+   8 Clemson                [COLD]  vs   9 Iowa                   [ICY ]  → Clemson                99.0%  ✓chalk ✓momentum
+   5 Vanderbilt             [ICY ]  vs  12 McNeese                [    ]  → Vanderbilt             99.1%  ✓chalk ✓momentum
+   4 Nebraska               [ICY ]  vs  13 Troy                   [ICY ]  → Nebraska               99.2%  ✓chalk ✓momentum
+   6 North Carolina         [ICY ]  vs  11 VCU                    [ICY ]  → North Carolina         99.1%  ✓chalk ✓momentum
+   3 Illinois               [ICY ]  vs  14 Penn                   [WARM]  → Illinois               99.0%  ✓chalk ✓momentum
+   7 Saint Mary's           [    ]  vs  10 Texas A&M              [ICY ]  → Saint Mary's           99.1%  ✓chalk ✓momentum
+   2 Houston                [ICY ]  vs  15 Idaho                  [ICY ]  → Houston                99.0%  ✓chalk ✓momentum
+
+  — R32 —
+   1 Florida                [    ]  vs   8 Clemson                [COLD]  → Florida                99.1%  ✓chalk ✓momentum
+   5 Vanderbilt             [ICY ]  vs   4 Nebraska               [ICY ]  → Vanderbilt             99.0%  ✓chalk ✓momentum ← UPSET ALERT
+   6 North Carolina         [ICY ]  vs   3 Illinois               [ICY ]  → North Carolina         98.9%  ✓chalk ✓momentum ← UPSET ALERT
+   7 Saint Mary's           [    ]  vs   2 Houston                [ICY ]  → Saint Mary's           98.9%  ✓chalk ✓momentum ← UPSET ALERT
+
+  — S16 —
+   1 Florida                [    ]  vs   5 Vanderbilt             [ICY ]  → Florida                99.1%  ✓chalk ✓momentum
+   6 North Carolina         [ICY ]  vs   7 Saint Mary's           [    ]  → North Carolina         99.0%  ✓chalk ✓momentum
+
+  — E8 —
+   1 Florida                [    ]  vs   6 North Carolina         [ICY ]  → Florida                99.1%  ✓chalk ✓momentum
+
+  Regional Champion:
+    Chalk:     1 Florida
+
+======================================== MIDWEST REGION ========================================
+
+  — R64 —
+   1 Michigan               [ICY ]  vs  16 UMBC                   [HOT ]  → Michigan               99.1%  ✓chalk ✓momentum
+   8 Georgia                [ICY ]  vs   9 Saint Louis            [    ]  → Georgia                98.6%  ✓chalk ✓momentum
+   5 Texas Tech             [WARM]  vs  12 Akron                  [    ]  → Texas Tech             99.1%  ✓chalk ✓momentum
+   4 Alabama                [    ]  vs  13 Hofstra                [WARM]  → Alabama                99.0%  ✓chalk ✓momentum
+   6 Tennessee              [ICY ]  vs  11 Miami (Ohio)           [    ]  → Tennessee              99.2%  ✓chalk ✓momentum
+   3 Virginia               [ICY ]  vs  14 Wright State           [ICY ]  → Virginia               99.2%  ✓chalk ✓momentum
+   7 Kentucky               [ICY ]  vs  10 Santa Clara            [ICY ]  → Kentucky               99.1%  ✓chalk ✓momentum
+   2 Iowa State             [ICY ]  vs  15 Tennessee State        [WARM]  → Iowa State             99.2%  ✓chalk ✓momentum
+
+  — R32 —
+   1 Michigan               [ICY ]  vs   8 Georgia                [ICY ]  → Michigan               99.1%  ✓chalk ✓momentum
+   5 Texas Tech             [WARM]  vs   4 Alabama                [    ]  → Texas Tech             99.0%  ✓chalk ✓momentum ← UPSET ALERT
+   6 Tennessee              [ICY ]  vs   3 Virginia               [ICY ]  → Tennessee              98.9%  ✓chalk ✓momentum ← UPSET ALERT
+   7 Kentucky               [ICY ]  vs   2 Iowa State             [ICY ]  → Kentucky               98.9%  ✓chalk ✓momentum ← UPSET ALERT
+
+  — S16 —
+   1 Michigan               [ICY ]  vs   5 Texas Tech             [WARM]  → Michigan               99.1%  ✓chalk ✓momentum
+   6 Tennessee              [ICY ]  vs   7 Kentucky               [ICY ]  → Tennessee              99.0%  ✓chalk ✓momentum
+
+  — E8 —
+   1 Michigan               [ICY ]  vs   6 Tennessee              [ICY ]  → Michigan               99.1%  ✓chalk ✓momentum
+
+  Regional Champion:
+    Chalk:     1 Michigan
+
+==========================================================================================
+  FINAL FOUR
+==========================================================================================
+   1 Duke                   [    ]  vs   1 Florida                [    ]  → Duke                   99.0%  ✓chalk ✓momentum
+   1 Arizona                [    ]  vs   1 Michigan               [ICY ]  → Arizona                99.0%  ✓chalk ✓momentum
+
+==========================================================================================
+  CHAMPIONSHIP
+==========================================================================================
+   1 Duke                   [    ]  vs   1 Arizona                [    ]  → Duke                   99.0%  ✓chalk ✓momentum
+
+  CHAMPION PICKS:
+    Strategy A (Chalk):        1 Duke
+    Strategy C (Pool Opt):     1 Duke
+    → HIGH CONFIDENCE — all models aligned

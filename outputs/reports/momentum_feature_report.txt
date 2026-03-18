@@ -1,0 +1,36 @@
+======================================================================
+  MOMENTUM FEATURE REPORT — Season 2026
+======================================================================
+
+TEAM ID MATCHING
+  Unmatched teams: 61
+    TeamID 1101: 'Abilene Chr'  (best score=0)
+    TeamID 1107: 'SUNY Albany'  (best score=0)
+    TeamID 1109: 'Alliant Intl'  (best score=0)
+    TeamID 1110: 'American Univ'  (best score=0)
+    TeamID 1115: 'Ark Pine Bluff'  (best score=0)
+    TeamID 1118: 'Armstrong St'  (best score=0)
+    TeamID 1121: 'Augusta'  (best score=0)
+    TeamID 1128: 'Birmingham So'  (best score=0)
+    TeamID 1131: 'Boston Univ'  (best score=0)
+    TeamID 1134: 'Brooklyn'  (best score=0)
+    TeamID 1148: 'Central Conn'  (best score=0)
+    TeamID 1154: 'Citadel'  (best score=0)
+    TeamID 1157: 'Coastal Car'  (best score=0)
+    TeamID 1158: 'Col Charleston'  (best score=0)
+    TeamID 1167: 'CS Bakersfield'  (best score=0)
+    TeamID 1168: 'CS Fullerton'  (best score=0)
+    TeamID 1169: 'CS Northridge'  (best score=0)
+    TeamID 1170: 'CS Sacramento'  (best score=0)
+    TeamID 1190: 'ETSU'  (best score=0)
+    TeamID 1192: 'F Dickinson'  (best score=0)
+    ... and 41 more (see team_id_mapping.json for full list)
+
+ABLATION TEST RESULTS
+  Model                            Accuracy    Brier      AUC
+  ----------------------------------------------------------
+
+FEATURE IMPORTANCES — Model C (KenPom + all momentum)
+
+RECOMMENDATION
+  ✗ KEEP Model A   — Momentum features do not improve by ≥1% (best delta: 0.0%). Stick with KenPom-only baseline.
