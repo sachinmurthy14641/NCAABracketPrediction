@@ -1,0 +1,182 @@
+==========================================================================
+  2026 NCAA TOURNAMENT — ROUND 2 PREDICTIONS
+  Base: LightGBM (KenPom efficiency features)
+  Adjustments: R1 margin of victory · upset momentum · struggle penalty
+==========================================================================
+
+──────────────────────────────────────────────────────────────────────────
+  EAST REGION
+──────────────────────────────────────────────────────────────────────────
+
+  #1 Duke                    vs  #9 TCU
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Duke wins) = 99.1%
+  Adjusted:     P(Duke wins) = 93.1%   (Δ = -6.0%)
+  Confidence:   HIGH
+  PICK:         Duke
+  Duke R1:  margin +6  →  Struggle vs #16 -5%
+  TCU R1:  margin +4  →  Narrow win +4pts -2%; Upset #8→#9 +3%
+
+  #2 Houston                 vs  #11 VCU
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Houston wins) = 99.1%
+  Adjusted:     P(Houston wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Houston
+  Houston R1:  margin +27  →  Dominant win +27pts +2%
+  VCU R1:  margin +4  →  OT win (vulner.) -5%; Upset #6→#11 +7%
+
+  #3 Illinois                vs  #10 Virginia
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Illinois wins) = 99.1%
+  Adjusted:     P(Illinois wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Illinois
+  Illinois R1:  margin +15  →  Dominant win +15pts +2%
+  Virginia R1:  margin +4  →  Narrow win +4pts -2%; Upset #9→#10 +3%
+
+  #4 Texas Tech              vs  #11 Alabama
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Texas Tech wins) = 99.1%
+  Adjusted:     P(Texas Tech wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Texas Tech
+  Texas Tech R1:  margin +13  →  
+
+──────────────────────────────────────────────────────────────────────────
+  WEST REGION
+──────────────────────────────────────────────────────────────────────────
+
+  #1 Arizona                 vs  #9 Utah State
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Arizona wins) = 99.1%
+  Adjusted:     P(Arizona wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Arizona
+  Arizona R1:  margin +34  →  Dominant win +34pts +5%
+  Utah State R1:  margin +6  →  Upset #8→#9 +3%
+
+  #2 Iowa State              vs  #7 Kentucky
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Iowa State wins) = 99.1%
+  Adjusted:     P(Iowa State wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Iowa State
+  Iowa State R1:  margin +34  →  Dominant win +34pts +5%
+  Kentucky R1:  margin +5  →  OT win (vulner.) -5%; Struggle vs #10 -2%
+
+  #3 Gonzaga                 vs  #6 San Diego St.
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Gonzaga wins) = 99.1%
+  Adjusted:     P(Gonzaga wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Gonzaga
+  Gonzaga R1:  margin +24  →  Dominant win +24pts +2%
+
+  #4 Kansas                  vs  #5 St. John's
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Kansas wins) = 99.0%
+  Adjusted:     P(Kansas wins) = 97.0%   (Δ = -2.0%)
+  Confidence:   HIGH
+  PICK:         Kansas
+  Kansas R1:  margin +25  →  Dominant win +25pts +2%
+  St. John's R1:  margin +13  →  
+
+──────────────────────────────────────────────────────────────────────────
+  MIDWEST REGION
+──────────────────────────────────────────────────────────────────────────
+
+  #1 Michigan                vs  #9 St. Louis
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Michigan wins) = 99.1%
+  Adjusted:     P(Michigan wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Michigan
+  Michigan R1:  margin +34  →  Dominant win +34pts +5%
+  St. Louis R1:  margin +12  →  Upset #8→#9 +3%
+
+  #2 Marquette               vs  #4 Nebraska
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Marquette wins) = 0.8%
+  Adjusted:     P(Marquette wins) = 3.0%   (Δ = +2.2%)
+  Confidence:   HIGH
+  PICK:         Nebraska  ★ UPSET PICK (#4 beats #2)
+  Marquette R1:  margin +18  →  Dominant win +18pts +2%
+  Nebraska R1:  margin +13  →  
+
+  #7 Ole Miss                vs  #8 Vanderbilt
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Ole Miss wins) = 0.9%
+  Adjusted:     P(Ole Miss wins) = 3.0%   (Δ = +2.1%)
+  Confidence:   HIGH
+  PICK:         Vanderbilt  ★ UPSET PICK (#8 beats #7)
+  Ole Miss R1:  margin +3  →  Narrow win +3pts -2%; Upset #5→#7 +3%
+
+  #4 Auburn                  vs  #5 Maryland
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Auburn wins) = 98.5%
+  Adjusted:     P(Auburn wins) = 97.0%   (Δ = -1.5%)
+  Confidence:   HIGH
+  PICK:         Auburn
+  Auburn R1:  margin +5  →  
+
+──────────────────────────────────────────────────────────────────────────
+  SOUTH REGION
+──────────────────────────────────────────────────────────────────────────
+
+  #1 Florida                 vs  #9 Iowa
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Florida wins) = 99.1%
+  Adjusted:     P(Florida wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Florida
+  Florida R1:  margin +68  →  Dominant win +68pts +5%
+  Iowa R1:  margin +5  →  Upset #8→#9 +3%
+
+  #2 Purdue                  vs  #7 Miami (Fla.)
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Purdue wins) = 99.1%
+  Adjusted:     P(Purdue wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Purdue
+  Purdue R1:  margin +25  →  Dominant win +25pts +2%
+  Miami (Fla.) R1:  margin +3  →  Narrow win +3pts -2%
+
+  #3 Tennessee               vs  #6 Louisville
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Tennessee wins) = 99.1%
+  Adjusted:     P(Tennessee wins) = 97.0%   (Δ = -2.1%)
+  Confidence:   HIGH
+  PICK:         Tennessee
+  Tennessee R1:  margin +13  →  
+  Louisville R1:  margin +14  →  
+
+  #5 Arkansas                vs  #12 High Point
+  ────────────────────────────────────────────────────────────
+  Base model:   P(Arkansas wins) = 99.1%
+  Adjusted:     P(Arkansas wins) = 96.1%   (Δ = -3.0%)
+  Confidence:   HIGH
+  PICK:         Arkansas
+  Arkansas R1:  margin +17  →  Dominant win +17pts +2%
+  High Point R1:  margin +1  →  Narrow win +1pts -2%; Upset #5→#12 +7%
+
+==========================================================================
+  SUMMARY
+==========================================================================
+
+  BIGGEST MOMENTUM SWINGS (base → adjusted):
+    #1 Duke               vs #9 TCU                 Δ=-6.0%  (99%→93%)
+    #5 Arkansas           vs #12 High Point          Δ=-3.0%  (99%→96%)
+    #2 Marquette          vs #4 Nebraska            Δ=+2.2%  (1%→3%)
+    #2 Houston            vs #11 VCU                 Δ=-2.1%  (99%→97%)
+    #1 Arizona            vs #9 Utah State          Δ=-2.1%  (99%→97%)
+    #1 Michigan           vs #9 St. Louis           Δ=-2.1%  (99%→97%)
+
+  UPSET PICKS (lower seed favored after adjustments):
+    ★ #4 Nebraska over #2 Marquette  (3.0% or 97.0%)
+    ★ #8 Vanderbilt over #7 Ole Miss  (3.0% or 97.0%)
+
+  TOSS-UP GAMES (both teams within ~10%):
+    None — no true coin-flip games this round.
+
+==========================================================================

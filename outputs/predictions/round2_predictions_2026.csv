@@ -1,0 +1,17 @@
+region,team_a,seed_a,team_b,seed_b,base_prob_a,adj_prob_a,delta,adj_a,adj_b,factors_a,factors_b,margin_a,margin_b,base_winner,adjusted_winner,pick_changed,confidence,note
+East,Duke,1,TCU,9,0.9914243085649562,0.9314243085649562,-0.06000000000000005,-0.05,0.009999999999999998,Struggle vs #16 -5%,Narrow win +4pts -2%; Upset #8→#9 +3%,6,4,Duke,Duke,False,HIGH,1 vs 9-seed that beat Ohio St.
+East,Houston,2,VCU,11,0.9914243085649562,0.97,-0.02142430856495625,0.02,0.020000000000000004,Dominant win +27pts +2%,OT win (vulner.) -5%; Upset #6→#11 +7%,27,4,Houston,Houston,False,HIGH,2 vs VCU (OT upset of UNC)
+East,Illinois,3,Virginia,10,0.990820894060897,0.97,-0.020820894060897044,0.02,0.009999999999999998,Dominant win +15pts +2%,Narrow win +4pts -2%; Upset #9→#10 +3%,15,4,Illinois,Illinois,False,HIGH,3 vs 10-seed that beat St. Louis
+East,Texas Tech,4,Alabama,11,0.9905356730811816,0.97,-0.02053567308118165,0.0,0.0,,No R1 data,13,,Texas Tech,Texas Tech,False,HIGH,4 vs 11-seed
+West,Arizona,1,Utah State,9,0.9914243085649562,0.97,-0.02142430856495625,0.05,0.03,Dominant win +34pts +5%,Upset #8→#9 +3%,34,6,Arizona,Arizona,False,HIGH,1 vs 9-seed that beat Villanova
+West,Iowa State,2,Kentucky,7,0.990820894060897,0.97,-0.020820894060897044,0.05,-0.07,Dominant win +34pts +5%,OT win (vulner.) -5%; Struggle vs #10 -2%,34,5,Iowa State,Iowa State,False,HIGH,2 vs 7-seed; Kentucky needed OT
+West,Gonzaga,3,San Diego St.,6,0.991228982789611,0.97,-0.02122898278961105,0.02,0.0,Dominant win +24pts +2%,No R1 data,24,,Gonzaga,Gonzaga,False,HIGH,3 vs 6-seed
+West,Kansas,4,St. John's,5,0.9904122108316278,0.97,-0.02041221083162781,0.02,0.0,Dominant win +25pts +2%,,25,13,Kansas,Kansas,False,HIGH,4 vs 5; near-even seeds
+Midwest,Michigan,1,St. Louis,9,0.9914243085649562,0.97,-0.02142430856495625,0.05,0.03,Dominant win +34pts +5%,Upset #8→#9 +3%,34,12,Michigan,Michigan,False,HIGH,1 vs 9-seed; St. Louis beat Georgia
+Midwest,Marquette,2,Nebraska,4,0.008239694398452624,0.03,0.021760305601547375,0.02,0.0,Dominant win +18pts +2%,,18,13,Nebraska,Nebraska,False,HIGH,2 vs 4-seed
+Midwest,Ole Miss,7,Vanderbilt,8,0.008575691435043775,0.03,0.021424308564956224,0.009999999999999998,0.0,Narrow win +3pts -2%; Upset #5→#7 +3%,No R1 data,3,,Vanderbilt,Vanderbilt,False,HIGH,7 vs 8; Ole Miss upset 5-seed
+Midwest,Auburn,4,Maryland,5,0.984888119873459,0.97,-0.01488811987345906,0.0,0.0,,No R1 data,5,,Auburn,Auburn,False,HIGH,Auburn survived close one
+South,Florida,1,Iowa,9,0.9914243085649562,0.97,-0.02142430856495625,0.05,0.03,Dominant win +68pts +5%,Upset #8→#9 +3%,68,5,Florida,Florida,False,HIGH,1 vs 9-seed; Florida dominant
+South,Purdue,2,Miami (Fla.),7,0.991228982789611,0.97,-0.02122898278961105,0.02,-0.02,Dominant win +25pts +2%,Narrow win +3pts -2%,25,3,Purdue,Purdue,False,HIGH,2 vs 7-seed
+South,Tennessee,3,Louisville,6,0.9905434144430781,0.97,-0.020543414443078167,0.0,0.0,,,13,14,Tennessee,Tennessee,False,HIGH,3 vs 6-seed
+South,Arkansas,5,High Point,12,0.9906803139325948,0.9606803139325948,-0.030000000000000027,0.02,0.05,Dominant win +17pts +2%,Narrow win +1pts -2%; Upset #5→#12 +7%,17,1,Arkansas,Arkansas,False,HIGH,5 vs 12-seed Cinderella

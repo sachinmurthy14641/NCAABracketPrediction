@@ -1,0 +1,37 @@
+team,seed,r1_opponent,r1_opponent_seed,team_score,opp_score,ot,region,upset
+Duke,1,Siena,16,71,65,False,East,False
+TCU,9,Ohio State,8,75,71,False,East,True
+VCU,11,North Carolina,6,82,78,True,East,True
+Kansas,4,Cal Baptist,13,88,63,False,East,False
+St. John's,5,Northern Iowa,12,84,71,False,East,False
+Michigan State,3,North Dakota State,14,91,70,False,East,False
+UCLA,7,UCF,10,83,67,False,East,False
+UConn,2,Furman,15,95,72,False,East,False
+Houston,2,Tennessee State,15,101,74,False,East,False
+Texas Tech,4,Alabama,11,78,65,False,East,False
+Virginia,10,Saint Louis,9,72,68,False,East,True
+Illinois,3,Penn,14,86,71,False,East,False
+Arizona,1,Long Island University,16,92,58,False,West,False
+Utah State,9,Villanova,8,74,68,False,West,True
+Texas,11,BYU,6,68,66,False,West,True
+High Point,12,Wisconsin,5,83,82,False,West,True
+Arkansas,4,Hawaii,13,84,69,False,West,False
+Gonzaga,3,Kennesaw State,14,96,72,False,West,False
+Miami (Fla.),7,Missouri,10,71,68,False,West,False
+Purdue,2,Queens,15,101,78,False,West,False
+Iowa State,2,Tennessee State,15,108,74,False,Midwest,False
+St. Louis,9,Georgia,8,77,65,False,Midwest,True
+Michigan,1,UMBC,16,95,61,False,Midwest,False
+Marquette,2,Akron,12,88,70,False,Midwest,False
+Nebraska,4,McNeese,12,79,66,False,Midwest,False
+Tennessee,3,SMU,11,81,66,False,Midwest,False
+Auburn,4,Vanderbilt,8,79,74,False,Midwest,False
+Ole Miss,7,Maryland,5,68,65,False,Midwest,True
+Kentucky,7,Santa Clara,10,89,84,True,Midwest,False
+Florida,1,Prairie View A&M,16,116,48,False,South,False
+Iowa,9,Clemson,8,74,69,False,South,True
+Louisville,6,South Florida,11,79,65,False,South,False
+Arkansas,5,North Dakota State,14,79,62,False,South,False
+Purdue,2,Idaho,15,95,70,False,South,False
+Miami (Fla.),7,Missouri,10,71,68,False,South,False
+Tennessee,3,Troy,13,84,71,False,South,False

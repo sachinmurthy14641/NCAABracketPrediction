@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 NCAA Tournament Bracket</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+    body { background: #1a1a2e; color: #eee; padding: 16px; }
+    h1 { text-align: center; color: #ffd700; font-size: 1.4rem; margin-bottom: 4px; }
+    .subtitle { text-align: center; color: #aaa; font-size: 0.8rem; margin-bottom: 16px; }
+
+    /* Legend */
+    .legend { display:flex; justify-content:center; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
+    .legend-item { display:flex; align-items:center; gap:6px; font-size:0.75rem; color:#ccc; }
+    .legend-swatch { width:18px; height:14px; border-radius:3px; border:1px solid #555; }
+
+    /* First Four table */
+    .ff-table-wrap { margin: 0 auto 20px auto; max-width: 700px; }
+    .ff-table-wrap h3 { color: #ffd700; font-size:0.85rem; margin-bottom:6px; text-align:center; }
+    table { width:100%; border-collapse:collapse; font-size:0.72rem; }
+    th, td { padding:5px 8px; border:1px solid #333; }
+    th { background:#2a2a4a; color:#ffd700; }
+    td { background:#16213e; color:#ddd; }
+
+    /* Main bracket layout */
+    .bracket-outer { display:flex; gap:10px; justify-content:center; align-items:flex-start; flex-wrap:nowrap; }
+    .left-half, .right-half { display:flex; flex-direction:column; gap:10px; }
+
+    /* Region */
+    .region-block { background:#16213e; border-radius:8px; padding:10px; min-width:520px; }
+    .region-title { font-size:0.85rem; font-weight:700; color:#ffd700; margin-bottom:4px; }
+    .region-sub { font-size:0.7rem; color:#aaa; font-weight:400; margin-left:8px; }
+    .round-headers { display:flex; gap:4px; margin-bottom:4px; }
+    .rh { flex:1; text-align:center; font-size:0.62rem; color:#888; font-weight:600;
+           text-transform:uppercase; letter-spacing:.5px; white-space:pre-line; }
+    .region-rounds { display:flex; gap:4px; align-items:stretch; }
+
+    /* Round columns */
+    .round { display:flex; flex-direction:column; flex:1; gap:4px; }
+    .r64  { flex:2; }
+    .r32  { flex:1.6; justify-content:space-around; }
+    .s16  { flex:1.3; justify-content:space-around; }
+    .e8   { flex:1.1; justify-content:center; }
+    .rchamp { flex:1; justify-content:center; }
+
+    /* Game card */
+    .game-card { border:1px solid #2a2a4a; border-radius:5px; overflow:hidden; }
+
+    /* Team row (R64 games) */
+    .team-row { display:flex; align-items:center; padding:3px 5px; border-bottom:1px solid #2a2a4a;
+                cursor:default; transition:filter .15s; }
+    .team-row:last-child { border-bottom:none; }
+    .team-row:hover { filter:brightness(1.1); }
+    .seed { font-size:0.65rem; color:#888; width:18px; flex-shrink:0; font-weight:700; }
+    .tname { flex:1; font-size:0.68rem; color:#ddd; white-space:nowrap; overflow:hidden;
+              text-overflow:ellipsis; }
+    .ff-team { font-style:italic; color:#aaa; font-size:0.62rem; }
+    .champ-pct { font-size:0.62rem; color:#666; width:30px; text-align:right; flex-shrink:0; }
+
+    /* Later round slots */
+    .later-slot { display:flex; align-items:center; padding:4px 6px; border-radius:4px;
+                  border:1px solid #2a2a4a; margin:1px 0; cursor:default; }
+    .later-slot:hover { filter:brightness(1.1); }
+
+    /* Final Four & Championship center block */
+    .ff-block { background:#0f3460; border-radius:10px; padding:14px; min-width:340px;
+                border:2px solid #ffd700; align-self:center; }
+    .ff-title { text-align:center; color:#ffd700; font-size:1rem; font-weight:700; margin-bottom:2px; }
+    .ff-sub { text-align:center; color:#aaa; font-size:0.72rem; margin-bottom:12px; }
+    .ff-semis { display:flex; gap:12px; justify-content:center; align-items:flex-start; }
+    .ff-semi { display:flex; flex-direction:column; gap:4px; min-width:120px; }
+    .ff-label { font-size:0.68rem; color:#aaa; text-align:center; margin-bottom:2px; }
+    .ff-winner-label, .champ-winner-label { font-size:0.62rem; color:#888; text-align:center; margin:2px 0; }
+    .ff-slot { display:flex; align-items:center; padding:4px 6px; border-radius:4px;
+               border:1px solid #2a2a4a; }
+    .ff-slot .tname { font-size:0.68rem; }
+    .ff-winner { border:1px solid #4caf50 !important; }
+    .champ-block { display:flex; flex-direction:column; gap:4px; min-width:130px; align-items:stretch; }
+    .champ-title { text-align:center; font-size:0.78rem; font-weight:700; color:#ffd700;
+                   margin-bottom:4px; }
+    .champ-team { border:1px solid #555 !important; }
+    .champ-winner { border:2px solid #ffd700 !important; font-weight:700; }
+    .champ-winner .tname { font-size:0.75rem; color:#333; font-weight:700; }
+    .champ-winner .seed { color:#555; }
+    .champ-winner .champ-pct { color:#555; font-weight:700; }
+    </style>
+</head>
+<body>
+  <h1>2026 NCAA Tournament Bracket — Model Predictions</h1>
+  <p class="subtitle">
+    Chalk picks from LightGBM model · Champion % from 1,000-simulation Monte Carlo
+    · Color: white = low · gold = high champion probability
+  </p>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:#f8f9fa"></div> &lt;1% champion prob
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:rgb(252,224,125)"></div> ~5% champ prob
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:rgb(255,200,62)"></div> ~50% champ prob
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch" style="background:rgb(255,180,0)"></div> 90%+ champ prob
+    </div>
+  </div>
+
+  <div class="ff-table-wrap">
+    <h3>First Four (already played / playing now)</h3>
+    <table>
+      <thead><tr><th>Game</th><th>Date</th><th>Matchup</th><th>Winner plays</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>FF1</td>
+          <td>Tue Mar 17</td>
+          <td>#16 UMBC vs #16 Howard</td>
+          <td>Midwest — plays #16 Michigan</td>
+        </tr>
+        <tr>
+          <td>FF2</td>
+          <td>Tue Mar 17</td>
+          <td>#11 Texas vs #11 NC State</td>
+          <td>West — plays #11 BYU</td>
+        </tr>
+        <tr>
+          <td>FF3</td>
+          <td>Wed Mar 18</td>
+          <td>#16 Prairie View A&M vs #16 Lehigh</td>
+          <td>South — plays #16 Florida</td>
+        </tr>
+        <tr>
+          <td>FF4</td>
+          <td>Wed Mar 18</td>
+          <td>#11 Miami (Ohio) vs #11 SMU</td>
+          <td>Midwest — plays #11 Tennessee</td>
+        </tr></tbody>
+    </table>
+  </div>
+
+  <div class="bracket-outer">
+    <div class="left-half">
+      
+    <div class="region-block">
+      <div class="region-title">EAST REGION
+        <span class="region-sub">@ Washington D.C.</span>
+      </div>
+      <div class="round-headers"><div class="rh">R64</div><div class="rh">R32</div><div class="rh">S16</div><div class="rh">Elite 8</div><div class="rh">Region
+Champ</div></div>
+      <div class="region-rounds" style="flex-direction:row">
+        <div class="round r64">
+    <div class="game-card">
+      
+      <div class="team-row" style="background:rgb(254,183,13)" title="Champion: 94.7% | Final Four: 97%">
+        <span class="seed">1</span>
+        <span class="tname ">Duke</span>
+        <span class="champ-pct">94.7%</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">16</span>
+        <span class="tname ">Siena</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">8</span>
+        <span class="tname ">Ohio State</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">9</span>
+        <span class="tname ">TCU</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">5</span>
+        <span class="tname ">St. John's</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">12</span>
+        <span class="tname ">Northern Iowa</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">4</span>
+        <span class="tname ">Kansas</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">13</span>
+        <span class="tname ">Cal Baptist</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">6</span>
+        <span class="tname ">Louisville</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">11</span>
+        <span class="tname ">South Florida</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">3</span>
+        <span class="tname ">Michigan State</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">14</span>
+        <span class="tname ">North Dakota State</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">7</span>
+        <span class="tname ">UCLA</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">10</span>
+        <span class="tname ">UCF</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: 3%">
+        <span class="seed">2</span>
+        <span class="tname ">UConn</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">15</span>
+        <span class="tname ">Furman</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div></div><div class="round r32">
+        <div class="later-slot" style="background:rgb(254,183,13)" title="Champion prob: 94.7%">
+          <span class="seed">1</span>
+          <span class="tname">Duke</span>
+          <span class="champ-pct">94.7%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">8</span>
+          <span class="tname">Ohio State</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">5</span>
+          <span class="tname">St. John's</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">4</span>
+          <span class="tname">Kansas</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">6</span>
+          <span class="tname">Louisville</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">3</span>
+          <span class="tname">Michigan State</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">7</span>
+          <span class="tname">UCLA</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">UConn</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round s16">
+        <div class="later-slot" style="background:rgb(254,183,13)" title="Champion prob: 94.7%">
+          <span class="seed">1</span>
+          <span class="tname">Duke</span>
+          <span class="champ-pct">94.7%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">5</span>
+          <span class="tname">St. John's</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">6</span>
+          <span class="tname">Louisville</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">UConn</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round e8">
+        <div class="later-slot" style="background:rgb(254,183,13)" title="Champion prob: 94.7%">
+          <span class="seed">1</span>
+          <span class="tname">Duke</span>
+          <span class="champ-pct">94.7%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">UConn</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round rchamp">
+        <div class="later-slot" style="background:rgb(254,183,13)" title="Champion prob: 94.7%">
+          <span class="seed">1</span>
+          <span class="tname">Duke</span>
+          <span class="champ-pct">94.7%</span>
+        </div></div>
+      </div>
+    </div>
+      
+    <div class="region-block">
+      <div class="region-title">SOUTH REGION
+        <span class="region-sub">@ Houston</span>
+      </div>
+      <div class="round-headers"><div class="rh">R64</div><div class="rh">R32</div><div class="rh">S16</div><div class="rh">Elite 8</div><div class="rh">Region
+Champ</div></div>
+      <div class="region-rounds" style="flex-direction:row">
+        <div class="round r64">
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: 96%">
+        <span class="seed">1</span>
+        <span class="tname ">Florida</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">16</span>
+        <span class="tname ">Prairie View A&M / Lehigh</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">8</span>
+        <span class="tname ">Clemson</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">9</span>
+        <span class="tname ">Iowa</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">5</span>
+        <span class="tname ">Vanderbilt</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">12</span>
+        <span class="tname ">McNeese</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">4</span>
+        <span class="tname ">Nebraska</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">13</span>
+        <span class="tname ">Troy</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">6</span>
+        <span class="tname ">North Carolina</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">11</span>
+        <span class="tname ">VCU</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: 4%">
+        <span class="seed">3</span>
+        <span class="tname ">Illinois</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">14</span>
+        <span class="tname ">Penn</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">7</span>
+        <span class="tname ">Saint Mary's</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">10</span>
+        <span class="tname ">Texas A&M</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">2</span>
+        <span class="tname ">Houston</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">15</span>
+        <span class="tname ">Idaho</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div></div><div class="round r32">
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">1</span>
+          <span class="tname">Florida</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">8</span>
+          <span class="tname">Clemson</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">5</span>
+          <span class="tname">Vanderbilt</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">4</span>
+          <span class="tname">Nebraska</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">6</span>
+          <span class="tname">North Carolina</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">3</span>
+          <span class="tname">Illinois</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">7</span>
+          <span class="tname">Saint Mary's</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">Houston</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round s16">
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">1</span>
+          <span class="tname">Florida</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">5</span>
+          <span class="tname">Vanderbilt</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">3</span>
+          <span class="tname">Illinois</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">Houston</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round e8">
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">1</span>
+          <span class="tname">Florida</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">3</span>
+          <span class="tname">Illinois</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round rchamp">
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">1</span>
+          <span class="tname">Florida</span>
+          <span class="champ-pct">—</span>
+        </div></div>
+      </div>
+    </div>
+    </div>
+
+    
+    <div class="ff-block">
+      <div class="ff-title">FINAL FOUR</div>
+      <div class="ff-sub">Indianapolis · April 4 (semis) / April 6 (championship)</div>
+
+      <div class="ff-semis">
+        <div class="ff-semi">
+          <div class="ff-label">East vs South</div>
+          <div class="ff-slot " style="background:rgb(254,183,13)" title="Champion prob: 94.7%">
+          <span class="seed">1</span> <span class="tname">Duke</span>
+          <span class="champ-pct">94.7%</span>
+        </div>
+          <div class="ff-slot " style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">1</span> <span class="tname">Florida</span>
+          <span class="champ-pct">—</span>
+        </div>
+          <div class="ff-winner-label">→ Finalist</div>
+          <div class="ff-slot ff-winner" style="background:rgb(254,183,13)" title="Champion prob: 94.7%">
+          <span class="seed">1</span> <span class="tname">Duke</span>
+          <span class="champ-pct">94.7%</span>
+        </div>
+        </div>
+
+        <div class="champ-block">
+          <div class="champ-title">🏆 CHAMPIONSHIP</div>
+          <div class="ff-slot champ-team" style="background:rgb(254,183,13)" title="Champion prob: 94.7%">
+          <span class="seed">1</span> <span class="tname">Duke</span>
+          <span class="champ-pct">94.7%</span>
+        </div>
+          <div class="ff-slot champ-team" style="background:rgb(248,245,237)" title="Champion prob: 5.1%">
+          <span class="seed">1</span> <span class="tname">Michigan</span>
+          <span class="champ-pct">5.1%</span>
+        </div>
+          <div class="champ-winner-label">Predicted Champion</div>
+          <div class="ff-slot champ-winner" style="background:rgb(254,183,13)" title="Champion prob: 94.7%">
+          <span class="seed">1</span> <span class="tname">Duke</span>
+          <span class="champ-pct">94.7%</span>
+        </div>
+        </div>
+
+        <div class="ff-semi">
+          <div class="ff-label">West vs Midwest</div>
+          <div class="ff-slot " style="background:rgb(248,248,249)" title="Champion prob: 0.1%">
+          <span class="seed">1</span> <span class="tname">Arizona</span>
+          <span class="champ-pct">0.1%</span>
+        </div>
+          <div class="ff-slot " style="background:rgb(248,245,237)" title="Champion prob: 5.1%">
+          <span class="seed">1</span> <span class="tname">Michigan</span>
+          <span class="champ-pct">5.1%</span>
+        </div>
+          <div class="ff-winner-label">→ Finalist</div>
+          <div class="ff-slot ff-winner" style="background:rgb(248,245,237)" title="Champion prob: 5.1%">
+          <span class="seed">1</span> <span class="tname">Michigan</span>
+          <span class="champ-pct">5.1%</span>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-half">
+      
+    <div class="region-block">
+      <div class="region-title">WEST REGION
+        <span class="region-sub">@ San Jose</span>
+      </div>
+      <div class="round-headers"><div class="rh">Region
+Champ</div><div class="rh">Elite 8</div><div class="rh">S16</div><div class="rh">R32</div><div class="rh">R64</div></div>
+      <div class="region-rounds" style="flex-direction:row-reverse">
+        <div class="round rchamp">
+        <div class="later-slot" style="background:rgb(248,248,249)" title="Champion prob: 0.1%">
+          <span class="seed">1</span>
+          <span class="tname">Arizona</span>
+          <span class="champ-pct">0.1%</span>
+        </div></div><div class="round e8">
+        <div class="later-slot" style="background:rgb(248,248,249)" title="Champion prob: 0.1%">
+          <span class="seed">1</span>
+          <span class="tname">Arizona</span>
+          <span class="champ-pct">0.1%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">Purdue</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round s16">
+        <div class="later-slot" style="background:rgb(248,248,249)" title="Champion prob: 0.1%">
+          <span class="seed">1</span>
+          <span class="tname">Arizona</span>
+          <span class="champ-pct">0.1%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">4</span>
+          <span class="tname">Arkansas</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">3</span>
+          <span class="tname">Gonzaga</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">Purdue</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round r32">
+        <div class="later-slot" style="background:rgb(248,248,249)" title="Champion prob: 0.1%">
+          <span class="seed">1</span>
+          <span class="tname">Arizona</span>
+          <span class="champ-pct">0.1%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">8</span>
+          <span class="tname">Villanova</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">5</span>
+          <span class="tname">Wisconsin</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">4</span>
+          <span class="tname">Arkansas</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">6</span>
+          <span class="tname">BYU</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">3</span>
+          <span class="tname">Gonzaga</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:rgb(248,248,249)" title="Champion prob: 0.1%">
+          <span class="seed">7</span>
+          <span class="tname">Miami (Fla.)</span>
+          <span class="champ-pct">0.1%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">Purdue</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round r64">
+    <div class="game-card">
+      
+      <div class="team-row" style="background:rgb(248,248,249)" title="Champion: 0.1% | Final Four: 86%">
+        <span class="seed">1</span>
+        <span class="tname ">Arizona</span>
+        <span class="champ-pct">0.1%</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">16</span>
+        <span class="tname ">Long Island University</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">8</span>
+        <span class="tname ">Villanova</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">9</span>
+        <span class="tname ">Utah State</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">5</span>
+        <span class="tname ">Wisconsin</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">12</span>
+        <span class="tname ">High Point</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">4</span>
+        <span class="tname ">Arkansas</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">13</span>
+        <span class="tname ">Hawaii</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">6</span>
+        <span class="tname ">BYU</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">11</span>
+        <span class="tname ">Texas / NC State</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: 1%">
+        <span class="seed">3</span>
+        <span class="tname ">Gonzaga</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">14</span>
+        <span class="tname ">Kennesaw State</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:rgb(248,248,249)" title="Champion: 0.1% | Final Four: 2%">
+        <span class="seed">7</span>
+        <span class="tname ">Miami (Fla.)</span>
+        <span class="champ-pct">0.1%</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">10</span>
+        <span class="tname ">Missouri</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: 10%">
+        <span class="seed">2</span>
+        <span class="tname ">Purdue</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">15</span>
+        <span class="tname ">Queens</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div></div>
+      </div>
+    </div>
+      
+    <div class="region-block">
+      <div class="region-title">MIDWEST REGION
+        <span class="region-sub">@ Chicago</span>
+      </div>
+      <div class="round-headers"><div class="rh">Region
+Champ</div><div class="rh">Elite 8</div><div class="rh">S16</div><div class="rh">R32</div><div class="rh">R64</div></div>
+      <div class="region-rounds" style="flex-direction:row-reverse">
+        <div class="round rchamp">
+        <div class="later-slot" style="background:rgb(248,245,237)" title="Champion prob: 5.1%">
+          <span class="seed">1</span>
+          <span class="tname">Michigan</span>
+          <span class="champ-pct">5.1%</span>
+        </div></div><div class="round e8">
+        <div class="later-slot" style="background:rgb(248,245,237)" title="Champion prob: 5.1%">
+          <span class="seed">1</span>
+          <span class="tname">Michigan</span>
+          <span class="champ-pct">5.1%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">Iowa State</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round s16">
+        <div class="later-slot" style="background:rgb(248,245,237)" title="Champion prob: 5.1%">
+          <span class="seed">1</span>
+          <span class="tname">Michigan</span>
+          <span class="champ-pct">5.1%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">5</span>
+          <span class="tname">Texas Tech</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">6</span>
+          <span class="tname">Tennessee</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">Iowa State</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round r32">
+        <div class="later-slot" style="background:rgb(248,245,237)" title="Champion prob: 5.1%">
+          <span class="seed">1</span>
+          <span class="tname">Michigan</span>
+          <span class="champ-pct">5.1%</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">8</span>
+          <span class="tname">Georgia</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">5</span>
+          <span class="tname">Texas Tech</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">4</span>
+          <span class="tname">Alabama</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">6</span>
+          <span class="tname">Tennessee</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">3</span>
+          <span class="tname">Virginia</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">7</span>
+          <span class="tname">Kentucky</span>
+          <span class="champ-pct">—</span>
+        </div>
+        <div class="later-slot" style="background:#f8f9fa" title="Champion prob: —">
+          <span class="seed">2</span>
+          <span class="tname">Iowa State</span>
+          <span class="champ-pct">—</span>
+        </div></div><div class="round r64">
+    <div class="game-card">
+      
+      <div class="team-row" style="background:rgb(248,245,237)" title="Champion: 5.1% | Final Four: 96%">
+        <span class="seed">1</span>
+        <span class="tname ">Michigan</span>
+        <span class="champ-pct">5.1%</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">16</span>
+        <span class="tname ">UMBC / Howard</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">8</span>
+        <span class="tname ">Georgia</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">9</span>
+        <span class="tname ">Saint Louis</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">5</span>
+        <span class="tname ">Texas Tech</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">12</span>
+        <span class="tname ">Akron</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">4</span>
+        <span class="tname ">Alabama</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">13</span>
+        <span class="tname ">Hofstra</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">6</span>
+        <span class="tname ">Tennessee</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">11</span>
+        <span class="tname ">Miami (Ohio) / SMU</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">3</span>
+        <span class="tname ">Virginia</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">14</span>
+        <span class="tname ">Wright State</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">7</span>
+        <span class="tname ">Kentucky</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">10</span>
+        <span class="tname ">Santa Clara</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div>
+    <div class="game-card">
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: 3%">
+        <span class="seed">2</span>
+        <span class="tname ">Iowa State</span>
+        <span class="champ-pct">—</span>
+      </div>
+      
+      <div class="team-row" style="background:#f8f9fa" title="Champion: — | Final Four: —">
+        <span class="seed">15</span>
+        <span class="tname ">Tennessee State</span>
+        <span class="champ-pct">—</span>
+      </div>
+    </div></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

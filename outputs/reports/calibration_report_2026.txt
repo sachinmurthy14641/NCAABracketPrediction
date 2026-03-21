@@ -1,0 +1,72 @@
+====================================================================
+  MODEL CALIBRATION REPORT — 2026 NCAA Tournament
+  Base model:  lightgbm_final_2026.pkl
+  Cal seasons: [2023, 2024]   Test season: [2025]
+====================================================================
+
+  ACCURACY (direction only — calibration does not change picks)
+  Metric                               Raw   Calibrated       Δ
+  ------------------------------------------------------------
+  Accuracy  (cal set 2023-24)             99.2%       100.0%   +0.8%
+  Accuracy  (test set 2025)            100.0%       100.0%   +0.0%
+
+  CALIBRATION QUALITY (lower = better)
+  Metric                               Raw   Calibrated       Δ
+  ------------------------------------------------------------
+  Brier score (cal set 2023-24)         0.0058       0.0000  -0.0058
+  Log loss    (cal set 2023-24)         0.0265       0.0000  -0.0265
+  Brier score (test set 2025)         0.0002       0.0000  -0.0002
+  Log loss    (test set 2025)         0.0108       0.0000  -0.0108
+
+  RAW (2023-24) probability distribution:
+         0-10%  ██████████████                    42
+        10-20%                                     0
+        20-30%                                     0
+        30-40%                                     0
+        40-50%                                     0
+        50-60%                                     0
+        60-70%                                     0
+        70-80%                                     0
+        80-90%                                     1
+       90-100%  ██████████████████████████████    88
+
+  CAL (2023-24) probability distribution:
+         0-10%  ██████████████                    43
+        10-20%                                     0
+        20-30%                                     0
+        30-40%                                     0
+        40-50%                                     0
+        50-60%                                     0
+        60-70%                                     0
+        70-80%                                     0
+        80-90%                                     0
+       90-100%  ██████████████████████████████    88
+
+  CAL (2025) probability distribution:
+         0-10%  █████                             10
+        10-20%                                     0
+        20-30%                                     0
+        30-40%                                     0
+        40-50%                                     0
+        50-60%                                     0
+        60-70%                                     0
+        70-80%                                     0
+        80-90%                                     0
+       90-100%  ██████████████████████████████    54
+
+  SPOT CHECK — Sample Round 2 matchups (calibrated probabilities)
+  (compare these to the 99%+ values from the raw model)
+  Matchup                                      Raw     Cal
+  --------------------------------------------------------
+  Duke(1) vs TCU(9)                         99.1%  100.0%
+  Florida(1) vs Iowa(9)                     99.1%  100.0%
+  Iowa State(2) vs Kentucky(7)              SKIP (team not found)
+  Kansas(4) vs St. John's(5)                99.1%  100.0%
+  Arizona(1) vs Utah State(9)               SKIP (team not found)
+  Gonzaga(3) vs San Diego St.               99.2%  100.0%
+
+====================================================================
+  VERDICT
+====================================================================
+  ~ Modest improvement: Brier score -0.0058
+  ✓ No accuracy regression on held-out 2025 test season

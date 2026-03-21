@@ -1,0 +1,866 @@
+================================================================================
+NCAA TOURNAMENT PREDICTION MODEL IMPROVEMENT PLAN
+================================================================================
+
+GOAL: Improve model accuracy from 72% to 80%+ on tournament games
+
+CURRENT BASELINE (March 16, 2026):
+- 2023: 64.6% accuracy
+- 2024: 69.7% accuracy  
+- 2025: 83.1% accuracy
+- Average: 72.5% accuracy
+
+TARGET AFTER IMPROVEMENTS:
+- 2023: 75%+ accuracy
+- 2024: 78%+ accuracy
+- 2025: 85%+ accuracy  
+- Average: 79-80% accuracy
+
+STRETCH GOAL:
+- Average: 82-85% accuracy (matching best public models)
+
+================================================================================
+PHASE 0: RESEARCH & BASELINE (Week 1: March 17-23)
+================================================================================
+
+GOAL: Understand what actually works in NCAA tournament prediction
+
+STEP 0.1: ANALYZE KAGGLE COMPETITION WINNERS
+--------------------------------------------
+
+Top Kaggle solutions to review:
+
+1. 2019 Winner: "CPMPalmer"
+   - Approach: Ensemble of multiple models
+   - Key insight: Combined team metrics + seed + historical tournament performance
+   - Link: https://www.kaggle.com/competitions/mens-machine-learning-competition-2019/discussion/88843
+
+2. 2017 Winner: "Playoff Predictors"  
+   - Approach: Logistic regression with engineered features
+   - Key insight: Recent game performance weighted heavily
+   - Link: https://www.kaggle.com/competitions/march-machine-learning-mania-2017/discussion/31188
+
+3. 2015 Winner
+   - Approach: Gradient boosting on efficiency metrics
+   - Key insight: Adjusted efficiency margin was most predictive feature
+
+ACTION ITEMS:
+□ Create research folder: mkdir -p research/kaggle_winners
+□ Read 3 Kaggle winning solutions
+□ Document features used, data sources, model architecture, key insights
+□ Save findings to: research/kaggle_winners/winning_approaches.md
+
+EXTRACT FROM EACH WINNER:
+1. Features used (efficiency stats? tempo? recent form?)
+2. Data sources (KenPom? Torvik? Both?)
+3. Model architecture (LightGBM? Ensemble? Neural net?)
+4. Training strategy (tournament-only? regular season? weights?)
+5. Key insights (what mattered most?)
+
+DELIVERABLE (by March 19):
+research/kaggle_winners/winning_approaches.md
+
+Should contain:
+- Common patterns across winners
+- Features that always helped
+- Features that never helped
+- Data strategies
+- Model choices
+- Validation approaches
+
+
+STEP 0.2: REVIEW ACADEMIC RESEARCH
+-----------------------------------
+
+Papers to review:
+
+1. FiveThirtyEight methodology
+   - How their March Madness predictions work
+   - Link: https://fivethirtyeight.com/methodology/how-our-march-madness-predictions-work-2/
+
+2. Recent academic papers (2020-2024)
+   - Search Google Scholar: "machine learning march madness prediction"
+   - Focus on recent publications
+
+ACTION ITEMS:
+□ Create academic folder: mkdir -p research/academic
+□ Read FiveThirtyEight methodology
+□ Search for 2-3 recent academic papers
+□ Extract usable techniques
+
+DELIVERABLE (by March 20):
+research/academic/key_papers.md
+
+Should contain:
+- FiveThirtyEight approach (features, accuracy, adoptable techniques)
+- Key findings from academic papers
+- List of techniques to try
+
+
+STEP 0.3: BENCHMARK AGAINST EXISTING SYSTEMS
+---------------------------------------------
+
+Systems to compare:
+
+1. KenPom's bracket predictions (~75-78% accuracy)
+2. FiveThirtyEight's model (~74-76% accuracy)  
+3. Bart Torvik's predictions
+4. Vegas/betting markets (~85-88% accuracy - gold standard)
+
+ACTION:
+Write script: scripts/benchmark_models.py
+
+Compare our 2024 predictions to KenPom's 2024 predictions:
+- Where did we agree/disagree?
+- Who was right when we differed?
+- What patterns emerge?
+
+DELIVERABLE (by March 21):
+outputs/benchmarks/model_comparison_2024.txt
+
+Should show:
+- Agreement rate with KenPom
+- Our accuracy vs KenPom accuracy
+- Games where we differed and we were right
+- Games where we differed and KenPom was right
+- Patterns (e.g., "KenPom better at [X], we're better at [Y]")
+
+
+STEP 0.4: ERROR ANALYSIS ON CURRENT MODEL
+------------------------------------------
+
+CRITICAL: Understand WHERE the current model fails
+
+ACTION:
+Write script: scripts/analyze_errors.py
+
+For all incorrect predictions in 2023-2025:
+- What were the game characteristics?
+- Were they upsets or favorites?
+- What seeds were involved?
+- What efficiency gaps?
+
+QUESTIONS TO ANSWER:
+
+1. Are errors mostly upsets or favorites?
+   - If upsets → model too confident in favorites
+   - If favorites → model missing something about underdogs
+
+2. What seed matchups cause problems?
+   - 5v12? 6v11? 8v9?
+   - Known "upset rounds"
+
+3. Early or late tournament?
+   - If early → model missing basic patterns
+   - If late → variance/small sample issues
+
+4. Efficiency vs seeds?
+   - Errors where KenPom favored underdog but model picked favorite?
+   - Or vice versa?
+
+DELIVERABLE (by March 22):
+outputs/analysis/error_patterns.txt
+
+Should contain:
+- Total errors by year
+- Breakdown by seed differential
+- Breakdown by efficiency gap
+- Breakdown by round
+- Breakdown by upset type (picked favorite, underdog won vs picked underdog, favorite won)
+- Key insights about model weaknesses
+
+
+STEP 0.5: ESTABLISH IMPROVEMENT TARGETS
+----------------------------------------
+
+Based on research and error analysis, set concrete targets
+
+DELIVERABLE (by March 23):
+outputs/plan/improvement_targets.md
+
+Should contain:
+- Baseline (current) accuracy
+- Phase 1 target (after regular season data)
+- Phase 2 target (after momentum features)
+- Phase 3 target (after ensemble/calibration)
+- Success criteria for each phase
+
+
+PHASE 0 SUMMARY:
+By March 23, you should have:
+□ research/kaggle_winners/winning_approaches.md
+□ research/academic/key_papers.md
+□ outputs/analysis/error_patterns.txt
+□ outputs/plan/improvement_targets.md
+
+These documents will guide all future improvements.
+
+
+================================================================================
+PHASE 1: DATA EXPANSION (Week 2-3: March 24 - April 6)
+================================================================================
+
+GOAL: Expand training data from 1,300 tournament games to ~100,000 total games
+EXPECTED IMPROVEMENT: +4-6% accuracy (72% → 76-78%)
+
+STEP 1.1: ACQUIRE REGULAR SEASON GAME DATA
+-------------------------------------------
+
+DECISION: Use Bart Torvik data (easiest, free)
+
+WHY TORVIK:
+✓ Free API/CSV downloads
+✓ Game-level data available
+✓ Advanced stats included
+✓ Historical coverage 2008-2025
+
+ACTION:
+Create script: scripts/download_torvik_data.py
+
+IMPLEMENTATION:
+def download_torvik_season(year):
+    """Download all D1 games for a season from Torvik"""
+    url = f"http://barttorvik.com/{year}_team_results.csv"
+    df = pd.read_csv(url)
+    return df
+
+def process_torvik_data(df, year):
+    """Convert team-game format to matchup format"""
+    # Torvik format: Team, Opponent, Result, Date, Location
+    # Need to create: team_a vs team_b format
+    # Avoid duplicates (each game appears twice in raw data)
+    pass
+
+def download_all_seasons(start_year=2008, end_year=2025):
+    """Download and process all seasons"""
+    pass
+
+DELIVERABLE (by March 25):
+data/raw/regular_season_games_2008_2025.csv
+
+Expected:
+- ~100,000 rows
+- Columns: date, season, team_a, team_b, winner, score_a, score_b, location, is_tournament
+
+
+STEP 1.2: MERGE WITH KENPOM RATINGS
+------------------------------------
+
+CHALLENGE: Need team ratings AT TIME OF GAME, not end-of-season
+
+SOLUTION:
+Use KenPom pre-tournament ratings (closest approximation)
+
+ACTION:
+Create script: scripts/merge_kenpom_ratings.py
+
+IMPLEMENTATION:
+def get_rating_at_date(team, date, kenpom_df):
+    """Get team's KenPom rating as of a specific date"""
+    season = get_season_from_date(date)
+    rating_row = kenpom_df[(kenpom_df['season'] == season) & (kenpom_df['team'] == team)]
+    return rating_row[['adj_em', 'adj_o', 'adj_d', 'adj_t', ...]].to_dict()
+
+def merge_ratings_to_games(games_df, kenpom_df):
+    """Add KenPom ratings to each game"""
+    # For each game, look up both teams' ratings
+    # Skip games with missing ratings
+    pass
+
+DELIVERABLE (by March 27):
+data/processed/regular_season_with_ratings_2008_2025.csv
+
+Expected:
+- ~80,000-90,000 rows (some dropped due to missing ratings)
+- Each row: One game with both teams' KenPom ratings
+
+
+STEP 1.3: CREATE UNIFIED TRAINING DATASET
+------------------------------------------
+
+Combine tournament + regular season games with proper weighting
+
+ACTION:
+Create script: scripts/create_training_dataset_v2.py
+
+IMPLEMENTATION:
+def create_unified_dataset():
+    # Load tournament games (existing data)
+    tournament = pd.read_csv('data/processed/training_data.csv')
+    tournament['is_tournament'] = 1
+    tournament['weight'] = 3.0  # 3x weight for tournament games
+    
+    # Load regular season games
+    regular_season = pd.read_csv('data/processed/regular_season_with_ratings_2008_2025.csv')
+    regular_season['is_tournament'] = 0
+    regular_season['weight'] = 1.0
+    
+    # Apply feature engineering to regular season
+    # (Same features as tournament games)
+    
+    # Combine
+    full_dataset = pd.concat([tournament, regular_season])
+    
+    return full_dataset
+
+DELIVERABLE (by March 29):
+data/processed/training_data_v2.csv
+
+Expected:
+- ~80,000-90,000 rows
+- Mix of tournament (3x weight) + regular season (1x weight)
+- Same features as before, just more training data
+
+
+STEP 1.4: TRAIN MODEL V2 ON EXPANDED DATA
+------------------------------------------
+
+Train new model on expanded dataset with sample weights
+
+ACTION:
+Create script: scripts/train_model_v2.py
+
+IMPLEMENTATION:
+def train_model_v2():
+    df = pd.read_csv('data/processed/training_data_v2.csv')
+    
+    # Split by season (time-based)
+    train = df[df['season'] <= 2022]
+    val = df[(df['season'] == 2023) & (df['is_tournament'] == 1)]
+    test = df[(df['season'] == 2024) & (df['is_tournament'] == 1)]
+    holdout = df[(df['season'] == 2025) & (df['is_tournament'] == 1)]
+    
+    # Train with sample weights
+    model = LGBMClassifier(
+        n_estimators=500,
+        max_depth=7,
+        learning_rate=0.05,
+        num_leaves=31,
+        colsample_bytree=0.8,
+        subsample=0.8,
+        random_state=42
+    )
+    
+    model.fit(
+        train[features],
+        train['team_a_won'],
+        sample_weight=train['weight']  # Tournament games weighted 3x
+    )
+    
+    # Evaluate on tournament games only
+    val_acc = evaluate(model, val)
+    test_acc = evaluate(model, test)
+    holdout_acc = evaluate(model, holdout)
+    
+    avg_acc = np.mean([val_acc, test_acc, holdout_acc])
+    
+    # Save model
+    joblib.dump(model, 'outputs/models/lightgbm_v2_2026.pkl')
+    
+    return model, avg_acc
+
+DELIVERABLE (by March 31):
+outputs/models/lightgbm_v2_2026.pkl
+
+Training report with:
+- 2023 accuracy
+- 2024 accuracy
+- 2025 accuracy
+- Average accuracy
+- Improvement from baseline
+
+SUCCESS CRITERIA:
+□ Average accuracy >75% (up from 72%)
+□ Brier score <0.15
+□ No overfitting (train vs test gap <5%)
+
+DECISION POINT (April 6):
+
+IF average accuracy >75%:
+  → SUCCESS! Proceed to Phase 2
+
+IF average accuracy 73-75%:
+  → Spend extra week debugging
+  → Analyze what's not working
+  → Fix before Phase 2
+
+IF average accuracy <73%:
+  → STOP and reassess
+  → Regular season data may not be helping
+  → Consider alternative approaches
+
+
+================================================================================
+PHASE 2: FEATURE ENGINEERING (Week 4: April 7-13)
+================================================================================
+
+GOAL: Add momentum and matchup-specific features
+EXPECTED IMPROVEMENT: +2-3% accuracy (76% → 78-81%)
+
+⚠️ ONLY START PHASE 2 IF PHASE 1 ACHIEVED >75% ACCURACY
+
+STEP 2.1: ADD RECENT FORM FEATURES
+-----------------------------------
+
+Add features capturing team momentum and recent performance
+
+NEW FEATURES:
+- recent_win_pct (last 10 games)
+- recent_eff_margin (avg point differential in last 10)
+- recent_opp_quality (strength of recent schedule)
+- eff_trend (improving or declining? linear regression slope)
+- momentum_advantage = team_a_trend - team_b_trend
+
+ACTION:
+Create module: src/features/recent_form.py
+
+IMPLEMENTATION:
+def calculate_recent_form(team, date, games_history, n_games=10):
+    """Calculate team performance in last N games before date"""
+    
+    # Get team's last N games before this date
+    team_games = games_history[
+        ((games_history['team_a'] == team) | (games_history['team_b'] == team)) &
+        (games_history['date'] < date)
+    ].sort_values('date').tail(n_games)
+    
+    if len(team_games) < 5:
+        return None  # Not enough data
+    
+    recent_stats = {
+        'recent_wins': 0,
+        'recent_eff_margin': 0,
+        'recent_opp_quality': 0
+    }
+    
+    for _, game in team_games.iterrows():
+        won = (game['winner'] == team)
+        recent_stats['recent_wins'] += int(won)
+        
+        # Calculate efficiency margin
+        # Calculate opponent quality
+    
+    # Calculate trend (linear regression)
+    from scipy.stats import linregress
+    slope, _, _, _, _ = linregress(game_numbers, eff_margins)
+    recent_stats['eff_trend'] = slope
+    
+    return recent_stats
+
+DELIVERABLE (by April 9):
+- Updated src/features/recent_form.py
+- New training dataset with momentum features
+- Model retrained with these features
+
+SUCCESS CRITERIA:
+□ Accuracy improves by 1-2%
+□ Feature importance shows momentum features matter
+
+
+STEP 2.2: ADD MATCHUP-SPECIFIC FEATURES
+----------------------------------------
+
+Add features capturing style matchups and variance factors
+
+NEW FEATURES:
+- pace_diff (abs difference in tempo)
+- fast_vs_slow (extreme pace mismatch flag)
+- high_variance (team relies heavily on 3PT shooting)
+- offense_vs_defense (high-powered offense vs elite defense)
+
+ACTION:
+Create module: src/features/matchup_factors.py
+
+IMPLEMENTATION:
+def calculate_matchup_factors(team_a, team_b, team_a_stats, team_b_stats):
+    """Calculate style matchup factors"""
+    
+    matchup_features = {}
+    
+    # Pace differential
+    matchup_features['pace_diff'] = abs(team_a_stats['adj_t'] - team_b_stats['adj_t'])
+    matchup_features['fast_vs_slow'] = 1 if (
+        (team_a_stats['adj_t'] > 72 and team_b_stats['adj_t'] < 68) or
+        (team_a_stats['adj_t'] < 68 and team_b_stats['adj_t'] > 72)
+    ) else 0
+    
+    # Three-point reliance (higher variance)
+    matchup_features['high_variance'] = 1 if (
+        team_a_stats['efg_o'] > 52 or team_b_stats['efg_o'] > 52
+    ) else 0
+    
+    return matchup_features
+
+DELIVERABLE (by April 11):
+- Updated src/features/matchup_factors.py
+- Model retrained with matchup features
+- Validation shows improvement
+
+
+STEP 2.3: VALIDATE PHASE 2
+---------------------------
+
+After adding all Phase 2 features, validate thoroughly
+
+ACTION:
+Retrain model with all new features and validate
+
+DELIVERABLE (by April 13):
+outputs/models/lightgbm_v2.1_2026.pkl
+
+Phase 2 Results showing:
+- 2023 accuracy
+- 2024 accuracy
+- 2025 accuracy
+- Average accuracy
+- Improvement from Phase 1
+
+SUCCESS CRITERIA:
+□ Average accuracy >78% (up from 76%)
+□ Consistent across all 3 years
+
+DECISION POINT (April 13):
+
+IF average accuracy >78%:
+  → SUCCESS! Proceed to Phase 3
+
+IF average accuracy 76-78%:
+  → Acceptable, maybe skip ensemble (diminishing returns)
+  → Focus on calibration only
+
+IF average accuracy <76%:
+  → Phase 2 features didn't help
+  → Reassess feature choices
+  → Consider different features
+
+
+================================================================================
+PHASE 3: ENSEMBLE & CALIBRATION (Week 5: April 14-20)
+================================================================================
+
+GOAL: Ensemble multiple models and calibrate probabilities
+EXPECTED IMPROVEMENT: +1-2% accuracy (78% → 80-82%)
+
+⚠️ ONLY START PHASE 3 IF PHASE 2 ACHIEVED >78% ACCURACY
+
+STEP 3.1: ADD ALTERNATIVE DATA SOURCE (TORVIK)
+-----------------------------------------------
+
+Train separate model using Bart Torvik ratings instead of KenPom
+
+ACTION:
+Create script: scripts/train_torvik_model.py
+
+IMPLEMENTATION:
+def train_torvik_model():
+    """Train separate model using Bart Torvik ratings"""
+    
+    # Download Torvik ratings
+    torvik_ratings = download_torvik_ratings(2008, 2025)
+    
+    # Rebuild features using Torvik instead of KenPom
+    torvik_features = build_features_from_torvik(games_df, torvik_ratings)
+    
+    # Train model (same architecture as KenPom model)
+    torvik_model = LGBMClassifier(...)
+    torvik_model.fit(torvik_features, labels)
+    
+    return torvik_model
+
+DELIVERABLE (by April 15):
+outputs/models/lightgbm_torvik_2026.pkl
+
+
+STEP 3.2: CREATE ENSEMBLE
+--------------------------
+
+Combine KenPom model + Torvik model for better predictions
+
+ACTION:
+Create module: src/models/ensemble.py
+
+IMPLEMENTATION:
+class EnsembleModel:
+    def __init__(self, kenpom_model, torvik_model):
+        self.kenpom_model = kenpom_model
+        self.torvik_model = torvik_model
+        self.meta_model = LogisticRegression()
+    
+    def predict_proba(self, X_kenpom, X_torvik):
+        # Get predictions from each model
+        kenpom_pred = self.kenpom_model.predict_proba(X_kenpom)[:, 1]
+        torvik_pred = self.torvik_model.predict_proba(X_torvik)[:, 1]
+        
+        # Simple average (or use meta_model)
+        ensemble_pred = (kenpom_pred + torvik_pred) / 2
+        
+        return ensemble_pred
+
+EXPECTED IMPROVEMENT: +1-2%
+
+DELIVERABLE (by April 16):
+outputs/models/ensemble_2026.pkl
+
+
+STEP 3.3: CALIBRATE PROBABILITIES
+----------------------------------
+
+Apply calibration to ensure probabilities are accurate
+
+WHY: Even accurate models can have poorly calibrated probabilities
+     Kelly betting requires ACCURATE probabilities, not just correct predictions
+
+ACTION:
+Create script: scripts/calibrate_model.py
+
+IMPLEMENTATION:
+from sklearn.calibration import CalibratedClassifierCV
+
+def calibrate_ensemble(ensemble_model, X_val, y_val):
+    """Apply isotonic regression to calibrate probabilities"""
+    
+    calibrated = CalibratedClassifierCV(
+        ensemble_model,
+        method='isotonic',
+        cv='prefit'
+    )
+    
+    calibrated.fit(X_val, y_val)
+    
+    return calibrated
+
+DELIVERABLE (by April 18):
+outputs/models/ensemble_calibrated_2026.pkl
+
+
+STEP 3.4: FINAL VALIDATION & CALIBRATION CHECK
+-----------------------------------------------
+
+Comprehensive validation of final model
+
+ACTION:
+Create script: scripts/final_validation.py
+
+VALIDATE:
+1. Accuracy on each year
+2. Calibration curve
+3. Expected Calibration Error (ECE)
+4. Brier score
+5. Log loss
+
+DELIVERABLE (by April 20):
+outputs/reports/final_model_validation.pdf
+
+Should show:
+- Accuracy by year (2023, 2024, 2025, average)
+- Total improvement from baseline
+- Calibration metrics (ECE, Brier)
+- Calibration curve plot
+- Confirmation model is ready for 2026
+
+SUCCESS CRITERIA:
+□ Average accuracy >80%
+□ Calibration error <0.03
+□ Brier score <0.12
+□ Consistent across all years (no single year <75%)
+
+DECISION POINT (April 20):
+
+IF average accuracy >80%:
+  → SUCCESS! Model ready for 2026 tournament
+  → Document and deploy
+
+IF average accuracy 78-80%:
+  → Good enough, use with caution
+  → Lower position sizes if trading
+
+IF average accuracy <78%:
+  → Model not ready for trading
+  → Use for bracket prediction only
+  → Continue improving post-tournament
+
+
+================================================================================
+PROJECT MANAGEMENT & DISCIPLINE
+================================================================================
+
+WEEKLY CHECK-INS (Every Sunday Evening)
+---------------------------------------
+
+Claude will ask you:
+
+1. What did you complete this week?
+   - Which deliverables from the plan?
+   
+2. What are the results?
+   - Accuracy metrics
+   - Any surprises or issues?
+
+3. What's next week's plan?
+   - Specific tasks from the roadmap
+   - Expected deliverables
+
+4. Any blockers?
+   - Data issues?
+   - Code bugs?
+   - Need help?
+
+
+ACCOUNTABILITY STRUCTURE
+-------------------------
+
+CLAUDE WILL:
+✓ Remind you of current phase goals
+✓ Ask for results before moving to next step
+✓ Flag if we're deviating from plan
+✓ Suggest course corrections if stuck
+
+YOU COMMIT TO:
+✓ Follow phases in order (no skipping ahead)
+✓ Complete deliverables before moving on
+✓ Share results (even if disappointing)
+✓ Debug issues before proceeding
+
+
+DECISION POINTS
+---------------
+
+After Phase 1 (April 6):
+  IF accuracy >75% → Proceed to Phase 2
+  IF accuracy 73-75% → Spend extra week debugging Phase 1
+  IF accuracy <73% → STOP and reassess
+
+After Phase 2 (April 13):
+  IF accuracy >78% → Proceed to Phase 3
+  IF accuracy 76-78% → Maybe skip ensemble, focus on calibration
+  IF accuracy <76% → Reassess feature choices
+
+After Phase 3 (April 20):
+  IF accuracy >80% → Model ready, deploy
+  IF accuracy 78-80% → Use with caution
+  IF accuracy <78% → Not ready for trading, bracket only
+
+
+================================================================================
+SUCCESS METRICS
+================================================================================
+
+MINIMUM VIABLE MODEL:
+- Average accuracy >78%
+- Calibration error <0.05
+- Brier score <0.15
+
+GOOD MODEL:
+- Average accuracy >80%
+- Calibration error <0.03
+- Brier score <0.12
+
+EXCELLENT MODEL (STRETCH GOAL):
+- Average accuracy >82%
+- Calibration error <0.02
+- Brier score <0.10
+- Comparable to Vegas/FiveThirtyEight
+
+
+================================================================================
+TIMELINE OVERVIEW
+================================================================================
+
+Week 1 (Mar 17-23): Research & baseline
+  - Analyze Kaggle winners, academic research
+  - Benchmark against existing systems
+  - Error analysis on current model
+  - Set improvement targets
+  DELIVERABLE: Research docs, error analysis, targets
+
+Week 2 (Mar 24-30): Data acquisition
+  - Download regular season games from Torvik
+  - Merge with KenPom ratings
+  - Create unified training dataset
+  DELIVERABLE: ~100K games dataset
+
+Week 3 (Mar 31-Apr 6): Phase 1 training
+  - Train model on expanded data
+  - Validate on tournament games
+  DELIVERABLE: Model v2, 75%+ accuracy
+
+Week 4 (Apr 7-13): Phase 2 features
+  - Add momentum features
+  - Add matchup features
+  - Retrain and validate
+  DELIVERABLE: Model v2.1, 78%+ accuracy
+
+Week 5 (Apr 14-20): Phase 3 ensemble
+  - Train Torvik model
+  - Create ensemble
+  - Calibrate probabilities
+  - Final validation
+  DELIVERABLE: Final model, 80%+ accuracy
+
+Week 6 (Apr 21-27): 2026 tournament
+  - Live validation on actual tournament
+  - Track performance in real-time
+  DELIVERABLE: Real-world performance report
+
+
+================================================================================
+FIRST TASK (This Week: March 17-23)
+================================================================================
+
+Complete Phase 0 research:
+
+1. READ 3 KAGGLE WINNING SOLUTIONS
+   □ 2019 Winner: CPMPalmer
+   □ 2017 Winner: Playoff Predictors
+   □ 2015 Winner
+   □ Document key features, insights
+   □ Save to: research/kaggle_winners/winning_approaches.md
+
+2. REVIEW FIVETHIRTYEIGHT METHODOLOGY
+   □ Read their public documentation
+   □ Extract usable insights
+   □ Save to: research/academic/key_papers.md
+
+3. RUN ERROR ANALYSIS ON CURRENT MODEL
+   □ Write scripts/analyze_errors.py
+   □ Understand where model fails
+   □ Save to: outputs/analysis/error_patterns.txt
+
+4. SET IMPROVEMENT TARGETS
+   □ Based on research + error analysis
+   □ Document in: outputs/plan/improvement_targets.md
+
+DELIVERABLES BY MARCH 23:
+□ research/kaggle_winners/winning_approaches.md
+□ research/academic/key_papers.md
+□ outputs/analysis/error_patterns.txt
+□ outputs/plan/improvement_targets.md
+
+
+================================================================================
+THE CONTRACT
+================================================================================
+
+CLAUDE PROMISES TO:
+- Hold you to this plan
+- Not let you skip steps
+- Ask for results before advancing
+- Help debug when stuck
+- Celebrate progress milestones
+
+YOU PROMISE TO:
+- Follow phases sequentially
+- Complete deliverables fully
+- Share honest results
+- Debug before proceeding
+- Communicate blockers early
+
+================================================================================
+END OF PLAN
+================================================================================
+
+This plan is your roadmap from 72% to 80%+ accuracy.
+
+Stick to it. Complete each phase. Validate rigorously.
+
+You've got this! 🎯

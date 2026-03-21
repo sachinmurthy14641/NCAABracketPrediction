@@ -1,0 +1,574 @@
+{
+  "_meta": {
+    "year": 2026,
+    "source": "Yahoo Sports / NCAA.com \u2014 verified March 15-17 2026",
+    "generated_by": "scripts/build_bracket_structure_2026.py",
+    "total_games": 67
+  },
+  "first_four": [
+    {
+      "game_id": 1,
+      "ff_id": "FF1",
+      "date": "Tue Mar 17",
+      "team_a": "UMBC",
+      "seed_a": 16,
+      "team_b": "Howard",
+      "seed_b": 16,
+      "winner_slot": {
+        "region": "Midwest",
+        "seed": 16,
+        "opponent": "Michigan"
+      }
+    },
+    {
+      "game_id": 2,
+      "ff_id": "FF2",
+      "date": "Tue Mar 17",
+      "team_a": "Texas",
+      "seed_a": 11,
+      "team_b": "NC State",
+      "seed_b": 11,
+      "winner_slot": {
+        "region": "West",
+        "seed": 11,
+        "opponent": "BYU"
+      }
+    },
+    {
+      "game_id": 3,
+      "ff_id": "FF3",
+      "date": "Wed Mar 18",
+      "team_a": "Prairie View A&M",
+      "seed_a": 16,
+      "team_b": "Lehigh",
+      "seed_b": 16,
+      "winner_slot": {
+        "region": "South",
+        "seed": 16,
+        "opponent": "Florida"
+      }
+    },
+    {
+      "game_id": 4,
+      "ff_id": "FF4",
+      "date": "Wed Mar 18",
+      "team_a": "Miami (Ohio)",
+      "seed_a": 11,
+      "team_b": "SMU",
+      "seed_b": 11,
+      "winner_slot": {
+        "region": "Midwest",
+        "seed": 11,
+        "opponent": "Tennessee"
+      }
+    }
+  ],
+  "regions": {
+    "east": {
+      "one_seed": "Duke",
+      "two_seed": "UConn",
+      "location": "Washington D.C.",
+      "elite_eight_dates": "March 27/29",
+      "round_of_64": [
+        {
+          "game_id": 5,
+          "seed_a": 1,
+          "team_a": "Duke",
+          "seed_b": 16,
+          "team_b": "Siena"
+        },
+        {
+          "game_id": 6,
+          "seed_a": 8,
+          "team_a": "Ohio State",
+          "seed_b": 9,
+          "team_b": "TCU"
+        },
+        {
+          "game_id": 7,
+          "seed_a": 5,
+          "team_a": "St. John's",
+          "seed_b": 12,
+          "team_b": "Northern Iowa"
+        },
+        {
+          "game_id": 8,
+          "seed_a": 4,
+          "team_a": "Kansas",
+          "seed_b": 13,
+          "team_b": "Cal Baptist"
+        },
+        {
+          "game_id": 9,
+          "seed_a": 6,
+          "team_a": "Louisville",
+          "seed_b": 11,
+          "team_b": "South Florida"
+        },
+        {
+          "game_id": 10,
+          "seed_a": 3,
+          "team_a": "Michigan State",
+          "seed_b": 14,
+          "team_b": "North Dakota State"
+        },
+        {
+          "game_id": 11,
+          "seed_a": 7,
+          "team_a": "UCLA",
+          "seed_b": 10,
+          "team_b": "UCF"
+        },
+        {
+          "game_id": 12,
+          "seed_a": 2,
+          "team_a": "UConn",
+          "seed_b": 15,
+          "team_b": "Furman"
+        }
+      ],
+      "round_of_32": [
+        {
+          "game_id": 37,
+          "winner_of": [
+            5,
+            6
+          ]
+        },
+        {
+          "game_id": 38,
+          "winner_of": [
+            7,
+            8
+          ]
+        },
+        {
+          "game_id": 39,
+          "winner_of": [
+            9,
+            10
+          ]
+        },
+        {
+          "game_id": 40,
+          "winner_of": [
+            11,
+            12
+          ]
+        }
+      ],
+      "sweet_16": [
+        {
+          "game_id": 53,
+          "winner_of": [
+            37,
+            38
+          ]
+        },
+        {
+          "game_id": 54,
+          "winner_of": [
+            39,
+            40
+          ]
+        }
+      ],
+      "elite_8": [
+        {
+          "game_id": 61,
+          "winner_of": [
+            53,
+            54
+          ]
+        }
+      ]
+    },
+    "west": {
+      "one_seed": "Arizona",
+      "two_seed": "Purdue",
+      "location": "San Jose",
+      "elite_eight_dates": "March 26/28",
+      "round_of_64": [
+        {
+          "game_id": 13,
+          "seed_a": 1,
+          "team_a": "Arizona",
+          "seed_b": 16,
+          "team_b": "Long Island University"
+        },
+        {
+          "game_id": 14,
+          "seed_a": 8,
+          "team_a": "Villanova",
+          "seed_b": 9,
+          "team_b": "Utah State"
+        },
+        {
+          "game_id": 15,
+          "seed_a": 5,
+          "team_a": "Wisconsin",
+          "seed_b": 12,
+          "team_b": "High Point"
+        },
+        {
+          "game_id": 16,
+          "seed_a": 4,
+          "team_a": "Arkansas",
+          "seed_b": 13,
+          "team_b": "Hawaii"
+        },
+        {
+          "game_id": 17,
+          "seed_a": 6,
+          "team_a": "BYU",
+          "seed_b": 11,
+          "team_b": "TBD_FF2"
+        },
+        {
+          "game_id": 18,
+          "seed_a": 3,
+          "team_a": "Gonzaga",
+          "seed_b": 14,
+          "team_b": "Kennesaw State"
+        },
+        {
+          "game_id": 19,
+          "seed_a": 7,
+          "team_a": "Miami (Fla.)",
+          "seed_b": 10,
+          "team_b": "Missouri"
+        },
+        {
+          "game_id": 20,
+          "seed_a": 2,
+          "team_a": "Purdue",
+          "seed_b": 15,
+          "team_b": "Queens"
+        }
+      ],
+      "round_of_32": [
+        {
+          "game_id": 41,
+          "winner_of": [
+            13,
+            14
+          ]
+        },
+        {
+          "game_id": 42,
+          "winner_of": [
+            15,
+            16
+          ]
+        },
+        {
+          "game_id": 43,
+          "winner_of": [
+            17,
+            18
+          ]
+        },
+        {
+          "game_id": 44,
+          "winner_of": [
+            19,
+            20
+          ]
+        }
+      ],
+      "sweet_16": [
+        {
+          "game_id": 55,
+          "winner_of": [
+            41,
+            42
+          ]
+        },
+        {
+          "game_id": 56,
+          "winner_of": [
+            43,
+            44
+          ]
+        }
+      ],
+      "elite_8": [
+        {
+          "game_id": 62,
+          "winner_of": [
+            55,
+            56
+          ]
+        }
+      ]
+    },
+    "midwest": {
+      "one_seed": "Michigan",
+      "two_seed": "Iowa State",
+      "location": "Chicago",
+      "elite_eight_dates": "March 27/29",
+      "round_of_64": [
+        {
+          "game_id": 21,
+          "seed_a": 1,
+          "team_a": "Michigan",
+          "seed_b": 16,
+          "team_b": "TBD_FF1"
+        },
+        {
+          "game_id": 22,
+          "seed_a": 8,
+          "team_a": "Georgia",
+          "seed_b": 9,
+          "team_b": "Saint Louis"
+        },
+        {
+          "game_id": 23,
+          "seed_a": 5,
+          "team_a": "Texas Tech",
+          "seed_b": 12,
+          "team_b": "Akron"
+        },
+        {
+          "game_id": 24,
+          "seed_a": 4,
+          "team_a": "Alabama",
+          "seed_b": 13,
+          "team_b": "Hofstra"
+        },
+        {
+          "game_id": 25,
+          "seed_a": 6,
+          "team_a": "Tennessee",
+          "seed_b": 11,
+          "team_b": "TBD_FF4"
+        },
+        {
+          "game_id": 26,
+          "seed_a": 3,
+          "team_a": "Virginia",
+          "seed_b": 14,
+          "team_b": "Wright State"
+        },
+        {
+          "game_id": 27,
+          "seed_a": 7,
+          "team_a": "Kentucky",
+          "seed_b": 10,
+          "team_b": "Santa Clara"
+        },
+        {
+          "game_id": 28,
+          "seed_a": 2,
+          "team_a": "Iowa State",
+          "seed_b": 15,
+          "team_b": "Tennessee State"
+        }
+      ],
+      "round_of_32": [
+        {
+          "game_id": 45,
+          "winner_of": [
+            21,
+            22
+          ]
+        },
+        {
+          "game_id": 46,
+          "winner_of": [
+            23,
+            24
+          ]
+        },
+        {
+          "game_id": 47,
+          "winner_of": [
+            25,
+            26
+          ]
+        },
+        {
+          "game_id": 48,
+          "winner_of": [
+            27,
+            28
+          ]
+        }
+      ],
+      "sweet_16": [
+        {
+          "game_id": 57,
+          "winner_of": [
+            45,
+            46
+          ]
+        },
+        {
+          "game_id": 58,
+          "winner_of": [
+            47,
+            48
+          ]
+        }
+      ],
+      "elite_8": [
+        {
+          "game_id": 63,
+          "winner_of": [
+            57,
+            58
+          ]
+        }
+      ]
+    },
+    "south": {
+      "one_seed": "Florida",
+      "two_seed": "Houston",
+      "location": "Houston",
+      "elite_eight_dates": "March 26/28",
+      "round_of_64": [
+        {
+          "game_id": 29,
+          "seed_a": 1,
+          "team_a": "Florida",
+          "seed_b": 16,
+          "team_b": "TBD_FF3"
+        },
+        {
+          "game_id": 30,
+          "seed_a": 8,
+          "team_a": "Clemson",
+          "seed_b": 9,
+          "team_b": "Iowa"
+        },
+        {
+          "game_id": 31,
+          "seed_a": 5,
+          "team_a": "Vanderbilt",
+          "seed_b": 12,
+          "team_b": "McNeese"
+        },
+        {
+          "game_id": 32,
+          "seed_a": 4,
+          "team_a": "Nebraska",
+          "seed_b": 13,
+          "team_b": "Troy"
+        },
+        {
+          "game_id": 33,
+          "seed_a": 6,
+          "team_a": "North Carolina",
+          "seed_b": 11,
+          "team_b": "VCU"
+        },
+        {
+          "game_id": 34,
+          "seed_a": 3,
+          "team_a": "Illinois",
+          "seed_b": 14,
+          "team_b": "Penn"
+        },
+        {
+          "game_id": 35,
+          "seed_a": 7,
+          "team_a": "Saint Mary's",
+          "seed_b": 10,
+          "team_b": "Texas A&M"
+        },
+        {
+          "game_id": 36,
+          "seed_a": 2,
+          "team_a": "Houston",
+          "seed_b": 15,
+          "team_b": "Idaho"
+        }
+      ],
+      "round_of_32": [
+        {
+          "game_id": 49,
+          "winner_of": [
+            29,
+            30
+          ]
+        },
+        {
+          "game_id": 50,
+          "winner_of": [
+            31,
+            32
+          ]
+        },
+        {
+          "game_id": 51,
+          "winner_of": [
+            33,
+            34
+          ]
+        },
+        {
+          "game_id": 52,
+          "winner_of": [
+            35,
+            36
+          ]
+        }
+      ],
+      "sweet_16": [
+        {
+          "game_id": 59,
+          "winner_of": [
+            49,
+            50
+          ]
+        },
+        {
+          "game_id": 60,
+          "winner_of": [
+            51,
+            52
+          ]
+        }
+      ],
+      "elite_8": [
+        {
+          "game_id": 64,
+          "winner_of": [
+            59,
+            60
+          ]
+        }
+      ]
+    }
+  },
+  "final_four": {
+    "location": "Indianapolis",
+    "dates": "April 4 (semis) / April 6 (championship)",
+    "games": [
+      {
+        "game_id": 65,
+        "description": "East champion vs South champion",
+        "winner_of": [
+          61,
+          64
+        ]
+      },
+      {
+        "game_id": 66,
+        "description": "West champion vs Midwest champion",
+        "winner_of": [
+          62,
+          63
+        ]
+      }
+    ]
+  },
+  "championship": {
+    "game_id": 67,
+    "description": "National Championship",
+    "winner_of": [
+      65,
+      66
+    ]
+  }
+}

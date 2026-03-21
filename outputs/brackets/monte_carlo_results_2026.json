@@ -1,0 +1,910 @@
+{
+  "_meta": {
+    "year": 2026,
+    "simulations": 1000,
+    "generated_at": "2026-03-19T01:51:30.711348",
+    "generated_by": "scripts/simulate_monte_carlo_quick.py"
+  },
+  "probabilities": {
+    "round_of_32": [
+      {
+        "team": "Duke",
+        "seed": 1,
+        "appearances": 996,
+        "probability": 0.996
+      },
+      {
+        "team": "Nebraska",
+        "seed": 4,
+        "appearances": 996,
+        "probability": 0.996
+      },
+      {
+        "team": "UConn",
+        "seed": 2,
+        "appearances": 995,
+        "probability": 0.995
+      },
+      {
+        "team": "Michigan State",
+        "seed": 3,
+        "appearances": 994,
+        "probability": 0.994
+      },
+      {
+        "team": "Iowa State",
+        "seed": 2,
+        "appearances": 994,
+        "probability": 0.994
+      },
+      {
+        "team": "Saint Louis",
+        "seed": 9,
+        "appearances": 993,
+        "probability": 0.993
+      },
+      {
+        "team": "Wisconsin",
+        "seed": 5,
+        "appearances": 993,
+        "probability": 0.993
+      },
+      {
+        "team": "Kansas",
+        "seed": 4,
+        "appearances": 993,
+        "probability": 0.993
+      },
+      {
+        "team": "UCLA",
+        "seed": 7,
+        "appearances": 992,
+        "probability": 0.992
+      },
+      {
+        "team": "Ohio State",
+        "seed": 8,
+        "appearances": 992,
+        "probability": 0.992
+      },
+      {
+        "team": "Kentucky",
+        "seed": 7,
+        "appearances": 992,
+        "probability": 0.992
+      },
+      {
+        "team": "Louisville",
+        "seed": 6,
+        "appearances": 992,
+        "probability": 0.992
+      },
+      {
+        "team": "North Carolina",
+        "seed": 6,
+        "appearances": 991,
+        "probability": 0.991
+      },
+      {
+        "team": "Virginia",
+        "seed": 3,
+        "appearances": 991,
+        "probability": 0.991
+      },
+      {
+        "team": "St. John's",
+        "seed": 5,
+        "appearances": 991,
+        "probability": 0.991
+      },
+      {
+        "team": "Utah State",
+        "seed": 9,
+        "appearances": 990,
+        "probability": 0.99
+      },
+      {
+        "team": "Tennessee",
+        "seed": 6,
+        "appearances": 990,
+        "probability": 0.99
+      },
+      {
+        "team": "Texas Tech",
+        "seed": 5,
+        "appearances": 990,
+        "probability": 0.99
+      },
+      {
+        "team": "Purdue",
+        "seed": 2,
+        "appearances": 990,
+        "probability": 0.99
+      },
+      {
+        "team": "Houston",
+        "seed": 2,
+        "appearances": 990,
+        "probability": 0.99
+      },
+      {
+        "team": "BYU",
+        "seed": 6,
+        "appearances": 989,
+        "probability": 0.989
+      },
+      {
+        "team": "Alabama",
+        "seed": 4,
+        "appearances": 989,
+        "probability": 0.989
+      },
+      {
+        "team": "Saint Mary's",
+        "seed": 7,
+        "appearances": 989,
+        "probability": 0.989
+      },
+      {
+        "team": "Gonzaga",
+        "seed": 3,
+        "appearances": 988,
+        "probability": 0.988
+      },
+      {
+        "team": "Iowa",
+        "seed": 9,
+        "appearances": 988,
+        "probability": 0.988
+      },
+      {
+        "team": "Michigan",
+        "seed": 1,
+        "appearances": 988,
+        "probability": 0.988
+      },
+      {
+        "team": "Arkansas",
+        "seed": 4,
+        "appearances": 986,
+        "probability": 0.986
+      },
+      {
+        "team": "Florida",
+        "seed": 1,
+        "appearances": 984,
+        "probability": 0.984
+      },
+      {
+        "team": "Vanderbilt",
+        "seed": 5,
+        "appearances": 984,
+        "probability": 0.984
+      },
+      {
+        "team": "Illinois",
+        "seed": 3,
+        "appearances": 984,
+        "probability": 0.984
+      },
+      {
+        "team": "Arizona",
+        "seed": 1,
+        "appearances": 899,
+        "probability": 0.899
+      },
+      {
+        "team": "Miami (Fla.)",
+        "seed": 7,
+        "appearances": 603,
+        "probability": 0.603
+      },
+      {
+        "team": "Missouri",
+        "seed": 10,
+        "appearances": 397,
+        "probability": 0.397
+      },
+      {
+        "team": "Long Island University",
+        "seed": 16,
+        "appearances": 101,
+        "probability": 0.101
+      },
+      {
+        "team": "Penn",
+        "seed": 14,
+        "appearances": 16,
+        "probability": 0.016
+      },
+      {
+        "team": "McNeese",
+        "seed": 12,
+        "appearances": 16,
+        "probability": 0.016
+      },
+      {
+        "team": "Lehigh",
+        "seed": 16,
+        "appearances": 16,
+        "probability": 0.016
+      },
+      {
+        "team": "Hawaii",
+        "seed": 13,
+        "appearances": 14,
+        "probability": 0.014
+      },
+      {
+        "team": "Kennesaw State",
+        "seed": 14,
+        "appearances": 12,
+        "probability": 0.012
+      },
+      {
+        "team": "Clemson",
+        "seed": 8,
+        "appearances": 12,
+        "probability": 0.012
+      },
+      {
+        "team": "Howard",
+        "seed": 16,
+        "appearances": 12,
+        "probability": 0.012
+      },
+      {
+        "team": "Texas A&M",
+        "seed": 10,
+        "appearances": 11,
+        "probability": 0.011
+      },
+      {
+        "team": "Hofstra",
+        "seed": 13,
+        "appearances": 11,
+        "probability": 0.011
+      },
+      {
+        "team": "Texas",
+        "seed": 11,
+        "appearances": 11,
+        "probability": 0.011
+      },
+      {
+        "team": "SMU",
+        "seed": 11,
+        "appearances": 10,
+        "probability": 0.01
+      },
+      {
+        "team": "Akron",
+        "seed": 12,
+        "appearances": 10,
+        "probability": 0.01
+      },
+      {
+        "team": "Villanova",
+        "seed": 8,
+        "appearances": 10,
+        "probability": 0.01
+      },
+      {
+        "team": "Idaho",
+        "seed": 15,
+        "appearances": 10,
+        "probability": 0.01
+      },
+      {
+        "team": "Queens",
+        "seed": 15,
+        "appearances": 10,
+        "probability": 0.01
+      },
+      {
+        "team": "VCU",
+        "seed": 11,
+        "appearances": 9,
+        "probability": 0.009
+      },
+      {
+        "team": "Wright State",
+        "seed": 14,
+        "appearances": 9,
+        "probability": 0.009
+      },
+      {
+        "team": "Northern Iowa",
+        "seed": 12,
+        "appearances": 9,
+        "probability": 0.009
+      },
+      {
+        "team": "South Florida",
+        "seed": 11,
+        "appearances": 8,
+        "probability": 0.008
+      },
+      {
+        "team": "TCU",
+        "seed": 9,
+        "appearances": 8,
+        "probability": 0.008
+      },
+      {
+        "team": "Santa Clara",
+        "seed": 10,
+        "appearances": 8,
+        "probability": 0.008
+      },
+      {
+        "team": "UCF",
+        "seed": 10,
+        "appearances": 8,
+        "probability": 0.008
+      },
+      {
+        "team": "Georgia",
+        "seed": 8,
+        "appearances": 7,
+        "probability": 0.007
+      },
+      {
+        "team": "High Point",
+        "seed": 12,
+        "appearances": 7,
+        "probability": 0.007
+      },
+      {
+        "team": "Cal Baptist",
+        "seed": 13,
+        "appearances": 7,
+        "probability": 0.007
+      },
+      {
+        "team": "Tennessee State",
+        "seed": 15,
+        "appearances": 6,
+        "probability": 0.006
+      },
+      {
+        "team": "North Dakota State",
+        "seed": 14,
+        "appearances": 6,
+        "probability": 0.006
+      },
+      {
+        "team": "Furman",
+        "seed": 15,
+        "appearances": 5,
+        "probability": 0.005
+      },
+      {
+        "team": "Troy",
+        "seed": 13,
+        "appearances": 4,
+        "probability": 0.004
+      },
+      {
+        "team": "Siena",
+        "seed": 16,
+        "appearances": 4,
+        "probability": 0.004
+      }
+    ],
+    "sweet_16": [
+      {
+        "team": "Duke",
+        "seed": 1,
+        "appearances": 987,
+        "probability": 0.987
+      },
+      {
+        "team": "Iowa State",
+        "seed": 2,
+        "appearances": 987,
+        "probability": 0.987
+      },
+      {
+        "team": "Nebraska",
+        "seed": 4,
+        "appearances": 986,
+        "probability": 0.986
+      },
+      {
+        "team": "Virginia",
+        "seed": 3,
+        "appearances": 985,
+        "probability": 0.985
+      },
+      {
+        "team": "Houston",
+        "seed": 2,
+        "appearances": 985,
+        "probability": 0.985
+      },
+      {
+        "team": "UConn",
+        "seed": 2,
+        "appearances": 985,
+        "probability": 0.985
+      },
+      {
+        "team": "Michigan State",
+        "seed": 3,
+        "appearances": 983,
+        "probability": 0.983
+      },
+      {
+        "team": "Texas Tech",
+        "seed": 5,
+        "appearances": 982,
+        "probability": 0.982
+      },
+      {
+        "team": "Gonzaga",
+        "seed": 3,
+        "appearances": 980,
+        "probability": 0.98
+      },
+      {
+        "team": "Michigan",
+        "seed": 1,
+        "appearances": 980,
+        "probability": 0.98
+      },
+      {
+        "team": "Kansas",
+        "seed": 4,
+        "appearances": 978,
+        "probability": 0.978
+      },
+      {
+        "team": "Arkansas",
+        "seed": 4,
+        "appearances": 978,
+        "probability": 0.978
+      },
+      {
+        "team": "Florida",
+        "seed": 1,
+        "appearances": 977,
+        "probability": 0.977
+      },
+      {
+        "team": "Illinois",
+        "seed": 3,
+        "appearances": 975,
+        "probability": 0.975
+      },
+      {
+        "team": "Arizona",
+        "seed": 1,
+        "appearances": 894,
+        "probability": 0.894
+      },
+      {
+        "team": "Purdue",
+        "seed": 2,
+        "appearances": 814,
+        "probability": 0.814
+      },
+      {
+        "team": "Miami (Fla.)",
+        "seed": 7,
+        "appearances": 178,
+        "probability": 0.178
+      },
+      {
+        "team": "Utah State",
+        "seed": 9,
+        "appearances": 83,
+        "probability": 0.083
+      },
+      {
+        "team": "North Carolina",
+        "seed": 6,
+        "appearances": 23,
+        "probability": 0.023
+      },
+      {
+        "team": "Iowa",
+        "seed": 9,
+        "appearances": 23,
+        "probability": 0.023
+      },
+      {
+        "team": "Long Island University",
+        "seed": 16,
+        "appearances": 22,
+        "probability": 0.022
+      },
+      {
+        "team": "St. John's",
+        "seed": 5,
+        "appearances": 22,
+        "probability": 0.022
+      },
+      {
+        "team": "Wisconsin",
+        "seed": 5,
+        "appearances": 22,
+        "probability": 0.022
+      },
+      {
+        "team": "BYU",
+        "seed": 6,
+        "appearances": 20,
+        "probability": 0.02
+      },
+      {
+        "team": "Saint Louis",
+        "seed": 9,
+        "appearances": 20,
+        "probability": 0.02
+      },
+      {
+        "team": "Alabama",
+        "seed": 4,
+        "appearances": 18,
+        "probability": 0.018
+      },
+      {
+        "team": "Louisville",
+        "seed": 6,
+        "appearances": 17,
+        "probability": 0.017
+      },
+      {
+        "team": "Tennessee",
+        "seed": 6,
+        "appearances": 15,
+        "probability": 0.015
+      },
+      {
+        "team": "Saint Mary's",
+        "seed": 7,
+        "appearances": 15,
+        "probability": 0.015
+      },
+      {
+        "team": "UCLA",
+        "seed": 7,
+        "appearances": 15,
+        "probability": 0.015
+      },
+      {
+        "team": "Vanderbilt",
+        "seed": 5,
+        "appearances": 14,
+        "probability": 0.014
+      },
+      {
+        "team": "Kentucky",
+        "seed": 7,
+        "appearances": 13,
+        "probability": 0.013
+      },
+      {
+        "team": "Ohio State",
+        "seed": 8,
+        "appearances": 13,
+        "probability": 0.013
+      },
+      {
+        "team": "Missouri",
+        "seed": 10,
+        "appearances": 7,
+        "probability": 0.007
+      },
+      {
+        "team": "VCU",
+        "seed": 11,
+        "appearances": 1,
+        "probability": 0.001
+      },
+      {
+        "team": "Queens",
+        "seed": 15,
+        "appearances": 1,
+        "probability": 0.001
+      },
+      {
+        "team": "Penn",
+        "seed": 14,
+        "appearances": 1,
+        "probability": 0.001
+      },
+      {
+        "team": "Villanova",
+        "seed": 8,
+        "appearances": 1,
+        "probability": 0.001
+      }
+    ],
+    "elite_8": [
+      {
+        "team": "Iowa State",
+        "seed": 2,
+        "appearances": 981,
+        "probability": 0.981
+      },
+      {
+        "team": "UConn",
+        "seed": 2,
+        "appearances": 980,
+        "probability": 0.98
+      },
+      {
+        "team": "Duke",
+        "seed": 1,
+        "appearances": 978,
+        "probability": 0.978
+      },
+      {
+        "team": "Florida",
+        "seed": 1,
+        "appearances": 973,
+        "probability": 0.973
+      },
+      {
+        "team": "Michigan",
+        "seed": 1,
+        "appearances": 970,
+        "probability": 0.97
+      },
+      {
+        "team": "Illinois",
+        "seed": 3,
+        "appearances": 960,
+        "probability": 0.96
+      },
+      {
+        "team": "Arizona",
+        "seed": 1,
+        "appearances": 885,
+        "probability": 0.885
+      },
+      {
+        "team": "Purdue",
+        "seed": 2,
+        "appearances": 806,
+        "probability": 0.806
+      },
+      {
+        "team": "Gonzaga",
+        "seed": 3,
+        "appearances": 129,
+        "probability": 0.129
+      },
+      {
+        "team": "Arkansas",
+        "seed": 4,
+        "appearances": 111,
+        "probability": 0.111
+      },
+      {
+        "team": "Miami (Fla.)",
+        "seed": 7,
+        "appearances": 63,
+        "probability": 0.063
+      },
+      {
+        "team": "Houston",
+        "seed": 2,
+        "appearances": 40,
+        "probability": 0.04
+      },
+      {
+        "team": "Texas Tech",
+        "seed": 5,
+        "appearances": 30,
+        "probability": 0.03
+      },
+      {
+        "team": "Nebraska",
+        "seed": 4,
+        "appearances": 27,
+        "probability": 0.027
+      },
+      {
+        "team": "Kansas",
+        "seed": 4,
+        "appearances": 22,
+        "probability": 0.022
+      },
+      {
+        "team": "Virginia",
+        "seed": 3,
+        "appearances": 19,
+        "probability": 0.019
+      },
+      {
+        "team": "Michigan State",
+        "seed": 3,
+        "appearances": 18,
+        "probability": 0.018
+      },
+      {
+        "team": "Long Island University",
+        "seed": 16,
+        "appearances": 3,
+        "probability": 0.003
+      },
+      {
+        "team": "BYU",
+        "seed": 6,
+        "appearances": 2,
+        "probability": 0.002
+      },
+      {
+        "team": "UCLA",
+        "seed": 7,
+        "appearances": 2,
+        "probability": 0.002
+      },
+      {
+        "team": "Utah State",
+        "seed": 9,
+        "appearances": 1,
+        "probability": 0.001
+      }
+    ],
+    "final_four": [
+      {
+        "team": "Duke",
+        "seed": 1,
+        "appearances": 970,
+        "probability": 0.97
+      },
+      {
+        "team": "Michigan",
+        "seed": 1,
+        "appearances": 965,
+        "probability": 0.965
+      },
+      {
+        "team": "Florida",
+        "seed": 1,
+        "appearances": 963,
+        "probability": 0.963
+      },
+      {
+        "team": "Arizona",
+        "seed": 1,
+        "appearances": 861,
+        "probability": 0.861
+      },
+      {
+        "team": "Purdue",
+        "seed": 2,
+        "appearances": 102,
+        "probability": 0.102
+      },
+      {
+        "team": "Illinois",
+        "seed": 3,
+        "appearances": 36,
+        "probability": 0.036
+      },
+      {
+        "team": "Iowa State",
+        "seed": 2,
+        "appearances": 34,
+        "probability": 0.034
+      },
+      {
+        "team": "UConn",
+        "seed": 2,
+        "appearances": 30,
+        "probability": 0.03
+      },
+      {
+        "team": "Miami (Fla.)",
+        "seed": 7,
+        "appearances": 18,
+        "probability": 0.018
+      },
+      {
+        "team": "Gonzaga",
+        "seed": 3,
+        "appearances": 13,
+        "probability": 0.013
+      },
+      {
+        "team": "Arkansas",
+        "seed": 4,
+        "appearances": 6,
+        "probability": 0.006
+      },
+      {
+        "team": "Houston",
+        "seed": 2,
+        "appearances": 1,
+        "probability": 0.001
+      },
+      {
+        "team": "Texas Tech",
+        "seed": 5,
+        "appearances": 1,
+        "probability": 0.001
+      }
+    ],
+    "championship": [
+      {
+        "team": "Duke",
+        "seed": 1,
+        "appearances": 962,
+        "probability": 0.962
+      },
+      {
+        "team": "Michigan",
+        "seed": 1,
+        "appearances": 947,
+        "probability": 0.947
+      },
+      {
+        "team": "Arizona",
+        "seed": 1,
+        "appearances": 38,
+        "probability": 0.038
+      },
+      {
+        "team": "Florida",
+        "seed": 1,
+        "appearances": 37,
+        "probability": 0.037
+      },
+      {
+        "team": "Miami (Fla.)",
+        "seed": 7,
+        "appearances": 8,
+        "probability": 0.008
+      },
+      {
+        "team": "Purdue",
+        "seed": 2,
+        "appearances": 5,
+        "probability": 0.005
+      },
+      {
+        "team": "Iowa State",
+        "seed": 2,
+        "appearances": 2,
+        "probability": 0.002
+      },
+      {
+        "team": "Illinois",
+        "seed": 3,
+        "appearances": 1,
+        "probability": 0.001
+      }
+    ],
+    "champion": [
+      {
+        "team": "Duke",
+        "seed": 1,
+        "appearances": 947,
+        "probability": 0.947
+      },
+      {
+        "team": "Michigan",
+        "seed": 1,
+        "appearances": 51,
+        "probability": 0.051
+      },
+      {
+        "team": "Arizona",
+        "seed": 1,
+        "appearances": 1,
+        "probability": 0.001
+      },
+      {
+        "team": "Miami (Fla.)",
+        "seed": 7,
+        "appearances": 1,
+        "probability": 0.001
+      }
+    ]
+  }
+}
